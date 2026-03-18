@@ -58,7 +58,7 @@ User
   └── Combines with: ralph, ultrawork, autopilot
 
 /cancel (clean termination of any active mode)
-/status (dashboard of active modes)
+/nystatus (dashboard of active modes)
 /resume (continue interrupted work)
 ```
 
@@ -80,7 +80,7 @@ User
 | retro | Analysis | Post-completion retrospective, extracts learnings | `/retro` |
 | init | Setup | Initialize target project with harness runtime and hooks | `/init ~/my-project` |
 | cancel | Cleanup | Cancel any active mode, clean up state | `/cancel` / `/cancel --force` |
-| status | Info | Show active modes and current state | `/status` |
+| status | Info | Show active modes and current state | `/nystatus` |
 | resume | Recovery | Continue interrupted work from saved state | `/resume` |
 
 ---

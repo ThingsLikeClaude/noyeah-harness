@@ -1,5 +1,5 @@
 ---
-name: status
+name: nystatus
 description: Show active harness modes and current state
 ---
 # Status - Harness State Dashboard

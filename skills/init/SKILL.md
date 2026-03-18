@@ -2,7 +2,7 @@
 name: init
 description: Initialize a target project with noyeah-harness runtime and hooks
 ---
-# h-init - Initialize a Project with noyeah-harness
+# init - Initialize a Project with noyeah-harness
 
 ## Purpose
 

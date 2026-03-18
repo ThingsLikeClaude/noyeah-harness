@@ -1,26 +1,31 @@
 {
   "permissions": {
     "allow": [
-      "npm",
-      "npx",
-      "node",
-      "git",
-      "ls",
-      "mkdir",
-      "cp",
-      "mv",
-      "find",
-      "grep",
-      "python3",
-      "pip",
-      "cargo",
-      "go",
-      "make",
-      "docker",
-      "curl",
-      "wget",
-      "gh",
-      "code",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(git *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(which *)",
+      "Bash(echo *)",
+      "Bash(date *)",
+      "Bash(python3 *)",
+      "Bash(pip *)",
+      "Bash(cargo *)",
+      "Bash(go *)",
+      "Bash(make *)",
+      "Bash(docker *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(gh *)",
+      "Bash(code *)",
       "Read",
       "Write",
       "Edit",
@@ -32,15 +37,25 @@
       "mcp__*"
     ],
     "deny": [
-      "rm -rf /",
-      "sudo",
-      "eval",
-      "ssh",
-      "git push --force main",
-      "git push --force master",
-      "git reset --hard",
-      "curl|bash",
-      "chmod 777"
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf $HOME)",
+      "Bash(git push --force main)",
+      "Bash(git push --force master)",
+      "Bash(git push --force-with-lease main)",
+      "Bash(git reset --hard)",
+      "Bash(chmod 777 *)",
+      "Bash(eval *)",
+      "Bash(sudo *)",
+      "Bash(ssh *)",
+      "Bash(scp *)",
+      "Bash(nc *)",
+      "Bash(ncat *)",
+      "Bash(curl * | bash)",
+      "Bash(curl * | sh)",
+      "Bash(wget * | bash)",
+      "Bash(wget * | sh)"
     ]
   },
   "hooks": {
@@ -50,7 +65,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node hooks/remote-command-guard.js"
+            "command": "node hooks/remote-command-guard.js \"$INPUT\""
           }
         ]
       }
@@ -61,7 +76,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node hooks/secret-filter.js"
+            "command": "node hooks/secret-filter.js \"$OUTPUT\""
           }
         ]
       }
