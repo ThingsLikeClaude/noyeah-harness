@@ -1,0 +1,83 @@
+{
+  "permissions": {
+    "allow": [
+      "npm",
+      "npx",
+      "node",
+      "git",
+      "ls",
+      "mkdir",
+      "cp",
+      "mv",
+      "find",
+      "grep",
+      "python3",
+      "pip",
+      "cargo",
+      "go",
+      "make",
+      "docker",
+      "curl",
+      "wget",
+      "gh",
+      "code",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Agent",
+      "WebFetch",
+      "WebSearch",
+      "mcp__*"
+    ],
+    "deny": [
+      "rm -rf /",
+      "sudo",
+      "eval",
+      "ssh",
+      "git push --force main",
+      "git push --force master",
+      "git reset --hard",
+      "curl|bash",
+      "chmod 777"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node hooks/remote-command-guard.js"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node hooks/secret-filter.js"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node hooks/learning-remind.js"
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "noyeah-harness",
+  "version": "1.0.0",
+  "description": "Autonomous execution engine for Claude Code — persistence loops, tier-based agent routing, consensus planning, state management, and verified completion.",
+  "author": {
+    "name": "f4u12"
+  },
+  "license": "MIT",
+  "agents": "./agents/",
+  "skills": "./skills/",
+  "hooks": "./hooks/",
+  "rules": "./rules/",
+  "mcpServers": "./mcp-servers.json",
+  "keywords": [
+    "harness",
+    "ralph",
+    "autopilot",
+    "agent-orchestration",
+    "runtime",
+    "noyeah",
+    "autonomous",
+    "execution-engine"
+  ],
+  "engines": {
+    "claude-code": ">=1.0.0"
+  }
+}
