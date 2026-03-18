@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "context7": {
+      "description": "Up-to-date library documentation and code examples via Context7",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+    "memory": {
+      "description": "Persistent knowledge graph for cross-session memory",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "github": {
+      "description": "GitHub API integration for repos, issues, and PRs",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    },
+    "exa": {
+      "description": "Web search and code example discovery via Exa",
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp?exaApiKey=${EXA_API_KEY}"
+    },
+    "jina-reader": {
+      "description": "Clean web page content extraction via Jina Reader",
+      "command": "npx",
+      "args": ["-y", "jina-reader-mcp"]
+    },
+    "sequential-thinking": {
+      "description": "Structured multi-step reasoning and problem decomposition",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    }
+  }
+}

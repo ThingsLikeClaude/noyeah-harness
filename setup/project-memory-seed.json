@@ -1,0 +1,57 @@
+{
+  "_readme": "Project Memory stores cross-session learnings for noyeah-harness. Entries are added automatically by /noyeah-retro after completing workflows. The 5 template entries below show the format for each type (decision, pattern, learning, constraint, preference). DELETE these template entries after reading them — they exist only as examples and will not interfere with the system. Real entries use types like 'decision', 'learning', etc. Template entries use type 'template' so they are invisible to the learning injection pipeline.",
+  "entries": [
+    {
+      "id": "template-001",
+      "type": "template",
+      "category_example": "decision",
+      "content": "EXAMPLE: Chose PostgreSQL over MongoDB for the user data store because relational integrity is critical for the billing module.",
+      "created_at": "2026-01-01T00:00:00Z",
+      "tags": ["database", "architecture"],
+      "confidence": 1.0,
+      "times_seen": 1
+    },
+    {
+      "id": "template-002",
+      "type": "template",
+      "category_example": "pattern",
+      "content": "EXAMPLE: All API route handlers follow the pattern: validate input (Zod) -> call service -> return response. No business logic in route files.",
+      "created_at": "2026-01-01T00:00:00Z",
+      "tags": ["api", "conventions"],
+      "confidence": 1.0,
+      "times_seen": 1
+    },
+    {
+      "id": "template-003",
+      "type": "template",
+      "category_example": "learning",
+      "content": "EXAMPLE: Mocking the database in integration tests hid a migration bug that only appeared in production. Always use real DB connections for integration tests.",
+      "created_at": "2026-01-01T00:00:00Z",
+      "tags": ["testing", "database"],
+      "applicable_when": "Writing integration tests that touch the database",
+      "recommendation": "Use real DB connections, not mocks, for integration tests",
+      "confidence": 0.9,
+      "times_seen": 3
+    },
+    {
+      "id": "template-004",
+      "type": "template",
+      "category_example": "constraint",
+      "content": "EXAMPLE: The CI pipeline has a 10-minute timeout. Test suites exceeding this must be parallelized or split.",
+      "created_at": "2026-01-01T00:00:00Z",
+      "tags": ["ci", "testing"],
+      "confidence": 1.0,
+      "times_seen": 1
+    },
+    {
+      "id": "template-005",
+      "type": "template",
+      "category_example": "preference",
+      "content": "EXAMPLE: User prefers functional style over class-based components. Use arrow functions and hooks instead of class components.",
+      "created_at": "2026-01-01T00:00:00Z",
+      "tags": ["style", "react"],
+      "confidence": 1.0,
+      "times_seen": 1
+    }
+  ]
+}

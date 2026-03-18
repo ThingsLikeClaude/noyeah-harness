@@ -1,0 +1,7 @@
+{
+  "_comment": "Copy to .claude/settings.local.json and customize. User-level overrides for noyeah-harness.",
+  "permissions": {
+    "allow": [],
+    "deny": []
+  }
+}
