@@ -1,5 +1,5 @@
 ---
-name: ecomode
+name: noyeah-ecomode
 description: Cost-efficient modifier that shifts agent tiers down
 ---
 # Ecomode - Token-Efficient Execution Modifier
@@ -36,15 +36,15 @@ Ecomode can combine with ANY other mode: `eco ralph`, `eco ultrawork`, `eco auto
 
 Say any of:
 ```
-/ecomode on          # Enable eco modifier
+/noyeah-ecomode on          # Enable eco modifier
 eco ralph "task"     # Ralph with eco tiers
 eco autopilot "task" # Autopilot with eco tiers
-/ecomode off         # Disable eco modifier
+/noyeah-ecomode off         # Disable eco modifier
 ```
 
 ## State Management
 
-Write to `.harness/state/ecomode-state.json`:
+Write to `.harness/state/noyeah-ecomode-state.json`:
 
 ```json
 {

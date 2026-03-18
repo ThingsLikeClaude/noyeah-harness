@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .harness/hooks/retro-check.js"
+            "command": "node .harness/hooks/noyeah-retro-check.js"
           }
         ]
       }

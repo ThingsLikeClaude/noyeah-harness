@@ -42,4 +42,4 @@ All runtime state lives under `.harness/`:
 | UltraQA | `running_checks` -> `diagnosing` -> `fixing` -> `complete` / `failed` / `cancelled` |
 | Ralplan | `planner_proposing` -> `architect_reviewing` -> `critic_validating` -> `approved` / `revision` |
 
-See `docs/contracts/ralph-state-contract.md` and `docs/contracts/cancel-contract.md` for full specs.
+See `docs/contracts/noyeah-ralph-state-contract.md` and `docs/contracts/noyeah-cancel-contract.md` for full specs.

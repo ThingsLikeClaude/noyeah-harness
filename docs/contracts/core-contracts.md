@@ -255,9 +255,9 @@ Use the I/O contracts from Part 1 when the agent is part of a structured workflo
 
 | Workflow | Agent chain |
 |----------|-------------|
-| `/ralplan` | planner -> architect -> critic |
-| `/ralph` | executor -> verifier (-> debugger or build-fixer on failure) |
-| `/autopilot` | planner -> architect -> critic -> executor -> verifier |
+| `/noyeah-ralplan` | planner -> architect -> critic |
+| `/noyeah-ralph` | executor -> verifier (-> debugger or build-fixer on failure) |
+| `/noyeah-autopilot` | planner -> architect -> critic -> executor -> verifier |
 
 In these chains the output of each agent becomes the `prior_output` input field of the next. The orchestrator reads the `verdict` field to decide whether to proceed, loop, or escalate. Parse verdict tokens exactly as defined — do not infer intent from prose.
 

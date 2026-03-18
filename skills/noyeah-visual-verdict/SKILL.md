@@ -1,5 +1,5 @@
 ---
-name: visual-verdict
+name: noyeah-visual-verdict
 description: Visual QA verification using screenshots
 ---
 # Visual Verdict - Screenshot-Based QA
@@ -87,13 +87,13 @@ Output structured JSON:
 ## Integration with Ralph
 
 During Ralph loop for visual tasks:
-1. Run `/visual-verdict` **before every edit iteration**
-2. Record score in `.harness/state/ralph-state.json` under `visual_scores[]`
+1. Run `/noyeah-visual-verdict` **before every edit iteration**
+2. Record score in `.harness/state/noyeah-ralph-state.json` under `visual_scores[]`
 3. Ralph stops when visual score >= 90
 
 ## State Tracking
 
-Append to `.harness/state/visual-verdicts.json`:
+Append to `.harness/state/noyeah-visual-verdicts.json`:
 
 ```json
 {

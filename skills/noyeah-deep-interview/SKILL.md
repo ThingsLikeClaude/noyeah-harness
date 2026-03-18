@@ -1,5 +1,5 @@
 ---
-name: deep-interview
+name: noyeah-deep-interview
 description: Socratic requirements gathering through structured questioning
 ---
 # Deep Interview - Requirements Discovery
@@ -13,7 +13,7 @@ Prevents the "I assumed you wanted X" problem by surfacing assumptions explicitl
 
 - Vague or ambiguous task description
 - User says "interview", "clarify", "what do I need?"
-- Before `/ralplan` or `/autopilot` for complex features
+- Before `/noyeah-ralplan` or `/noyeah-autopilot` for complex features
 - When multiple valid interpretations exist
 
 ## Do Not Use When
@@ -34,8 +34,8 @@ Prevents the "I assumed you wanted X" problem by surfacing assumptions explicitl
 5. **Validation**: How will we know it's done?
 
 ```
-/deep-interview "build a notification system"
-/deep-interview --quick "add caching"
+/noyeah-deep-interview "build a notification system"
+/noyeah-deep-interview --quick "add caching"
 ```
 
 ### Full Mode
@@ -43,7 +43,7 @@ Prevents the "I assumed you wanted X" problem by surfacing assumptions explicitl
 Comprehensive requirements pass with up to 15 questions:
 
 ```
-/deep-interview --full "redesign the authentication flow"
+/noyeah-deep-interview --full "redesign the authentication flow"
 ```
 
 Additional areas:
@@ -105,7 +105,7 @@ Date: {ISO date}
 ### 4. Transition
 
 After interview:
-- If part of autopilot: proceed to `/ralplan`
+- If part of autopilot: proceed to `/noyeah-ralplan`
 - If standalone: present summary and ask user what's next
 - Always save the interview file for reference
 

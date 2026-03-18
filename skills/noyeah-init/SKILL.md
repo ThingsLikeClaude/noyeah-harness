@@ -1,5 +1,5 @@
 ---
-name: init
+name: noyeah-init
 description: Initialize a target project with noyeah-harness runtime and hooks
 ---
 # init - Initialize a Project with noyeah-harness
@@ -29,9 +29,9 @@ and settings after upgrading noyeah-harness.
 ## Usage
 
 ```
-/init ~/my-project
-/init C:\Users\me\my-project
-/init .                        # initialize current directory
+/noyeah-init ~/my-project
+/noyeah-init C:\Users\me\my-project
+/noyeah-init .                        # initialize current directory
 ```
 
 ## Keyword Detection
@@ -49,7 +49,7 @@ Triggers on: "init", "initialize", "setup harness", "bootstrap"
 
 2. Verify noyeah-harness root is accessible by checking that the current working directory
    contains `CLAUDE.md`, `hooks/`, and `skills/`. If not, abort:
-   > "Error: Cannot find noyeah-harness root. Run /init from the noyeah-harness directory."
+   > "Error: Cannot find noyeah-harness root. Run /noyeah-init from the noyeah-harness directory."
 
 3. Read noyeah-harness version from `.claude-plugin/plugin.json`:
    - If the file exists and is valid JSON with a `version` field: use that value
@@ -109,7 +109,7 @@ Triggers on: "init", "initialize", "setup harness", "bootstrap"
    - `hooks/` -- noyeah-harness-managed hook scripts
    - `memory/` -- cross-session learnings (team-sharable decisions and patterns)
    - `context/` -- pre-context snapshots for tasks
-   - `plans/` -- implementation plans from /ralplan
+   - `plans/` -- implementation plans from /noyeah-ralplan
    - `codebase-map/` -- project structure overview
 
 4. Report:
@@ -120,7 +120,7 @@ Triggers on: "init", "initialize", "setup harness", "bootstrap"
 ### Phase 2: Copy Hook Scripts
 
 1. Read each hook script from noyeah-harness `hooks/` directory:
-   - `hooks/retro-check.js`
+   - `hooks/noyeah-retro-check.js`
    - `hooks/learning-remind.js`
 
 2. Write each to `$TARGET_PATH/.harness/hooks/` (always overwrite, unconditionally -- no hash check, no skip logic)
@@ -141,13 +141,13 @@ Triggers on: "init", "initialize", "setup harness", "bootstrap"
 4. For each hook event type in the template (e.g., `PostToolUse`, `SessionStart`):
    - If the event type key does not exist in target settings: add it entirely from the template
    - If the event type key exists, iterate the template's hook entries:
-     - For each template entry, search target entries for one whose `command` field contains the **full relative path** `.harness/hooks/{script-filename}` (e.g., `.harness/hooks/retro-check.js`)
+     - For each template entry, search target entries for one whose `command` field contains the **full relative path** `.harness/hooks/{script-filename}` (e.g., `.harness/hooks/noyeah-retro-check.js`)
      - If no match found: append the template entry to the target's array for that event type
      - If match found: replace the matched entry with the template version
 
    **Matching rule**: Match on `.harness/hooks/{filename}` (full path), NOT bare filename.
    This prevents false matches against user hooks that reference a different file with
-   the same basename (e.g., `scripts/retro-check.js` must NOT match).
+   the same basename (e.g., `scripts/noyeah-retro-check.js` must NOT match).
 
 5. Preserve all non-hook keys in settings.json (permissions, allowedTools, etc.)
 
@@ -184,7 +184,7 @@ This project uses [noyeah-harness](https://github.com/{user}/noyeah-harness) for
 `.harness/` contains runtime state, plans, memory, and hooks:
 - `state/` -- Active mode state (ralph, autopilot, etc.) [gitignored]
 - `context/` -- Pre-context snapshots for tasks
-- `plans/` -- Implementation plans from /ralplan
+- `plans/` -- Implementation plans from /noyeah-ralplan
 - `memory/project-memory.json` -- Cross-session learnings
 - `hooks/` -- Claude Code hook scripts (auto-managed by noyeah-harness)
 - `logs/` -- Execution history [gitignored]
@@ -196,12 +196,12 @@ This project uses [noyeah-harness](https://github.com/{user}/noyeah-harness) for
 
 Two hooks run automatically via `.claude/settings.json`:
 
-1. **retro-check** (PostToolUse: Write|Edit): After Ralph completes, reminds to run `/retro` if no recent learnings exist.
+1. **retro-check** (PostToolUse: Write|Edit): After Ralph completes, reminds to run `/noyeah-retro` if no recent learnings exist.
 2. **learning-remind** (SessionStart): On session start, reminds to inject learnings when dispatching agents.
 
 ### Updating
 
-Run `/init` from noyeah-harness to update hook scripts and settings.
+Run `/noyeah-init` from noyeah-harness to update hook scripts and settings.
 <!-- noyeah-harness:end -->
 ```
 

@@ -1,5 +1,5 @@
 ---
-name: ultraqa
+name: noyeah-ultraqa
 description: Autonomous QA cycling loop with architect diagnosis
 ---
 # UltraQA - Autonomous QA Cycling
@@ -18,8 +18,8 @@ fixes issues, and repeats until all checks pass or max cycles reached.
 ## Do Not Use When
 
 - Single known bug (use debugger directly)
-- Need planning first (use `/ralplan`)
-- Full lifecycle needed (use `/autopilot`)
+- Need planning first (use `/noyeah-ralplan`)
+- Full lifecycle needed (use `/noyeah-autopilot`)
 
 ## QA Cycle (Max 5 Rounds)
 
@@ -65,15 +65,15 @@ For each cycle (1..5):
 Configure which checks to run:
 
 ```
-/ultraqa --tests --build --lint --typecheck    # All (default)
-/ultraqa --tests                                # Tests only
-/ultraqa --build --typecheck                    # Build + types only
-/ultraqa --custom "npm run e2e"                 # Custom command
+/noyeah-ultraqa --tests --build --lint --typecheck    # All (default)
+/noyeah-ultraqa --tests                                # Tests only
+/noyeah-ultraqa --build --typecheck                    # Build + types only
+/noyeah-ultraqa --custom "npm run e2e"                 # Custom command
 ```
 
 ## State Management
 
-Write to `.harness/state/ultraqa-state.json`:
+Write to `.harness/state/noyeah-ultraqa-state.json`:
 
 ```json
 {

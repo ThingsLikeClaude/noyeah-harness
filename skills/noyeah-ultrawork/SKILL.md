@@ -1,5 +1,5 @@
 ---
-name: ultrawork
+name: noyeah-ultrawork
 description: Parallel agent dispatch for independent tasks
 ---
 # Ultrawork - Parallel Execution Engine
@@ -21,8 +21,8 @@ Autopilot wraps Ralph with lifecycle management.
 ## Do Not Use When
 
 - Tasks have sequential dependencies (run them in order)
-- User needs guaranteed completion (use `/ralph`)
-- Full lifecycle needed (use `/autopilot`)
+- User needs guaranteed completion (use `/noyeah-ralph`)
+- Full lifecycle needed (use `/noyeah-autopilot`)
 
 ## Execution Rules
 
@@ -69,7 +69,7 @@ After all agents complete:
 
 ## State Management
 
-Write to `.harness/state/ultrawork-state.json`:
+Write to `.harness/state/noyeah-ultrawork-state.json`:
 
 ```json
 {

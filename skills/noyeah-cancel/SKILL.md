@@ -1,5 +1,5 @@
 ---
-name: cancel
+name: noyeah-cancel
 description: Cancel any active harness mode and clean up state
 ---
 # Cancel - Clean Mode Termination
@@ -10,7 +10,7 @@ Detect and cancel the active harness mode, cleaning up state files properly.
 
 ## Usage
 
-Say "cancel", "stop", or "abort", or invoke `/cancel`.
+Say "cancel", "stop", or "abort", or invoke `/noyeah-cancel`.
 
 ## Detection & Cleanup Order
 
@@ -19,7 +19,7 @@ Check and cancel in dependency order:
 ### 1. Check Autopilot
 
 ```bash
-cat .harness/state/autopilot-state.json 2>/dev/null
+cat .harness/state/noyeah-autopilot-state.json 2>/dev/null
 ```
 
 If active:
@@ -31,7 +31,7 @@ If active:
 ### 2. Check Ralph
 
 ```bash
-cat .harness/state/ralph-state.json 2>/dev/null
+cat .harness/state/noyeah-ralph-state.json 2>/dev/null
 ```
 
 If active:
@@ -42,7 +42,7 @@ If active:
 ### 3. Check Ultrawork (standalone)
 
 ```bash
-cat .harness/state/ultrawork-state.json 2>/dev/null
+cat .harness/state/noyeah-ultrawork-state.json 2>/dev/null
 ```
 
 If active and NOT linked to ralph:
@@ -51,7 +51,7 @@ If active and NOT linked to ralph:
 ### 4. Check Ralplan
 
 ```bash
-cat .harness/state/ralplan-state.json 2>/dev/null
+cat .harness/state/noyeah-ralplan-state.json 2>/dev/null
 ```
 
 If active:

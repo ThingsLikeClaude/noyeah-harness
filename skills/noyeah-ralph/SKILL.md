@@ -1,5 +1,5 @@
 ---
-name: ralph
+name: noyeah-ralph
 description: Persistence loop until task completion with architect verification
 ---
 # Ralph - Persistence Loop for Claude Code
@@ -22,10 +22,10 @@ Think of Sisyphus: the boulder never stops rolling until it reaches the top.
 
 ## Do Not Use When
 
-- User wants full autonomous pipeline (idea to code) -> use `/autopilot`
-- User wants to explore/plan first -> use `/ralplan`
+- User wants full autonomous pipeline (idea to code) -> use `/noyeah-autopilot`
+- User wants to explore/plan first -> use `/noyeah-ralplan`
 - Quick one-shot fix -> delegate directly to executor
-- User wants manual control -> use `/ultrawork`
+- User wants manual control -> use `/noyeah-ultrawork`
 
 ## Execution Policy
 
@@ -56,7 +56,7 @@ If ambiguous, explore the codebase first, then ask targeted clarifying questions
 
 ### 1. Initialize State
 
-Write to `.harness/state/ralph-state.json`:
+Write to `.harness/state/noyeah-ralph-state.json`:
 
 ```json
 {
@@ -173,8 +173,8 @@ Agent(
 ### 5. On Approval
 
 1. Update state: `{ "active": false, "current_phase": "complete", "completed_at": "{now}" }`
-2. Run `/retro` to capture learnings from this run
-3. Run `/cancel` for clean state cleanup
+2. Run `/noyeah-retro` to capture learnings from this run
+3. Run `/noyeah-cancel` for clean state cleanup
 4. Report completion with evidence summary
 
 ### 6. On Rejection
@@ -187,13 +187,13 @@ Agent(
 ## Escalation & Stop Conditions
 
 - **Stop and report**: Missing credentials, unclear requirements, external service down
-- **Stop on user request**: "stop", "cancel", "abort" -> run `/cancel`
+- **Stop on user request**: "stop", "cancel", "abort" -> run `/noyeah-cancel`
 - **Continue**: When iteration produces progress
 - **Escalate**: Same issue recurs across 3+ iterations -> report as fundamental problem
 
 ## State Updates
 
-Update `.harness/state/ralph-state.json` at each phase transition:
+Update `.harness/state/noyeah-ralph-state.json` at each phase transition:
 
 ```javascript
 // Phase transitions:

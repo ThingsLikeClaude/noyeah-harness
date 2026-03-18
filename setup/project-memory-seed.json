@@ -1,5 +1,5 @@
 {
-  "_readme": "Project Memory stores cross-session learnings for noyeah-harness. Entries are added automatically by /retro after completing workflows. The 5 template entries below show the format for each type (decision, pattern, learning, constraint, preference). DELETE these template entries after reading them — they exist only as examples and will not interfere with the system. Real entries use types like 'decision', 'learning', etc. Template entries use type 'template' so they are invisible to the learning injection pipeline.",
+  "_readme": "Project Memory stores cross-session learnings for noyeah-harness. Entries are added automatically by /noyeah-retro after completing workflows. The 5 template entries below show the format for each type (decision, pattern, learning, constraint, preference). DELETE these template entries after reading them — they exist only as examples and will not interfere with the system. Real entries use types like 'decision', 'learning', etc. Template entries use type 'template' so they are invisible to the learning injection pipeline.",
   "entries": [
     {
       "id": "template-001",

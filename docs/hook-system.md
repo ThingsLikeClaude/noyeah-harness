@@ -28,9 +28,9 @@ optional behavioral nudges, not enforcement gates. They:
 - Never block or crash (exit 0 on any error)
 - Provide contextual reminders at the right moment (session start, post-write)
 - Are deterministic (they fire every time the event occurs, unlike prompt instructions)
-- Are distributed to target projects via `/init`
+- Are distributed to target projects via `/noyeah-init`
 
-Examples: retro-check (reminds to run /retro after Ralph completion),
+Examples: retro-check (reminds to run /noyeah-retro after Ralph completion),
 learning-remind (reminds about learning injection at session start).
 
 ## Why This Is Not a Contradiction
@@ -39,7 +39,7 @@ The original design philosophy favored prompt-driven logic over external scripts
 That principle still holds for **core loop logic** -- the LLM-driven decision-making
 that constitutes the harness runtime. Observability nudges are a separate concern:
 they do not make decisions, they surface information. A nudge script that says
-"consider running /retro" is categorically different from a script that tries to
+"consider running /noyeah-retro" is categorically different from a script that tries to
 implement Ralph's iteration logic. The former is a reminder; the latter would be
 fighting Claude Code's architecture.
 
@@ -56,7 +56,7 @@ Configure in `.claude/settings.json` (project-level) or `.claude/settings.local.
         "hooks": [
           {
             "type": "command",
-            "command": "node .harness/hooks/retro-check.js"
+            "command": "node .harness/hooks/noyeah-retro-check.js"
           }
         ]
       }
@@ -79,13 +79,13 @@ Configure in `.claude/settings.json` (project-level) or `.claude/settings.local.
 optional `matcher` (regex matched against tool name) and a required `hooks` array.
 Each hook in the array has a `type` (`"command"`) and a `command` (shell command string).
 
-## Harness Hook Scripts (Distributed via /init)
+## Harness Hook Scripts (Distributed via /noyeah-init)
 
 ### retro-check.js
 
 - **Event**: PostToolUse (matcher: `Write|Edit`)
 - **Trigger**: Fires on every Write/Edit tool use
-- **Behavior**: Checks if `ralph-state.json` was just written with `current_phase === "complete"`. If so, checks if any learning entry in `project-memory.json` has a timestamp within the last 5 minutes. If no recent learning exists, outputs a reminder to run `/retro`.
+- **Behavior**: Checks if `ralph-state.json` was just written with `current_phase === "complete"`. If so, checks if any learning entry in `project-memory.json` has a timestamp within the last 5 minutes. If no recent learning exists, outputs a reminder to run `/noyeah-retro`.
 - **On error**: Exits 0 silently (graceful no-op)
 
 ### learning-remind.js
@@ -99,10 +99,10 @@ Each hook in the array has a `type` (`"command"`) and a `command` (shell command
 
 | Concern | Where It Lives | Why |
 |---------|---------------|-----|
-| Ralph iteration loop | `skills/ralph/SKILL.md` | Requires LLM reasoning to decide next action |
-| Completion checking | `skills/ralph/SKILL.md` | Needs conversation context to verify |
-| Idle continuation | `skills/ralph/SKILL.md` | Prompt instructs Claude to continue |
-| Autopilot lifecycle | `skills/autopilot/SKILL.md` | Multi-phase pipeline with LLM decisions |
+| Ralph iteration loop | `skills/noyeah-ralph/SKILL.md` | Requires LLM reasoning to decide next action |
+| Completion checking | `skills/noyeah-ralph/SKILL.md` | Needs conversation context to verify |
+| Idle continuation | `skills/noyeah-ralph/SKILL.md` | Prompt instructs Claude to continue |
+| Autopilot lifecycle | `skills/noyeah-autopilot/SKILL.md` | Multi-phase pipeline with LLM decisions |
 | State transitions | Skill prompts + state files | LLM reads/writes state as part of workflow |
 
 ## Event Model
@@ -113,7 +113,7 @@ Each hook in the array has a `type` (`"command"`) and a `command` (shell command
 | post-write (ralph complete) | retro-check.js (hook script) | Observability nudge |
 | turn-complete (ralph loop) | Skill prompt continuation logic | Core loop logic |
 | session-idle (ralph) | Skill prompt continuation logic | Core loop logic |
-| session-end | State files persist for `/resume` | Persistence |
+| session-end | State files persist for `/noyeah-resume` | Persistence |
 | pre-tool-use | Available for future enforcement hooks | Reserved |
 | post-tool-use | Available for future enforcement hooks | Reserved |
 
@@ -121,9 +121,9 @@ Each hook in the array has a `type` (`"command"`) and a `command` (shell command
 
 Hook scripts (`retro-check.js`, `learning-remind.js`) and hook configuration
 (`settings-template.json`) live in the noyeah-harness `hooks/` directory. They are
-distributed to target projects via `/init`, which:
+distributed to target projects via `/noyeah-init`, which:
 
 1. Copies the scripts to `$TARGET/.harness/hooks/` (always overwrites on re-init)
 2. Merges hook entries into `$TARGET/.claude/settings.json` (preserves user settings)
 
-To update hooks in a target project after upgrading noyeah-harness, re-run `/init`.
+To update hooks in a target project after upgrading noyeah-harness, re-run `/noyeah-init`.

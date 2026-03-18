@@ -63,7 +63,7 @@ Before selecting learnings, apply decay to stale entries:
 - **Decay formula**: `confidence = confidence * 0.5` (halved once per 90-day period)
 - **Prune threshold**: If decayed `confidence < 0.1`, exclude from injection (treat as pruned)
 
-Decay is applied at read time for injection purposes only. It does not permanently modify `project-memory.json`. Permanent pruning is handled by the `/retro` write protocol.
+Decay is applied at read time for injection purposes only. It does not permanently modify `project-memory.json`. Permanent pruning is handled by the `/noyeah-retro` write protocol.
 
 ## Confidence Calibration Caveat
 

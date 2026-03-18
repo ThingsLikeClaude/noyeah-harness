@@ -20,7 +20,7 @@ work together to plan, build, test, and verify your code.
 
 | Term | What it means |
 |------|---------------|
-| **Skill** | A workflow you can invoke with a slash command (e.g., `/ralph`). Think of it as a recipe that tells Claude what steps to follow. |
+| **Skill** | A workflow you can invoke with a slash command (e.g., `/noyeah-ralph`). Think of it as a recipe that tells Claude what steps to follow. |
 | **Agent** | A specialized AI assistant with a specific job (e.g., "executor" builds code, "architect" reviews it). Agents are dispatched automatically by skills. |
 | **Tier** | The power level of an agent: LOW (quick lookups), STANDARD (normal work), THOROUGH (deep analysis). Higher tiers use more capable models. |
 | **Phase** | A step in a workflow's lifecycle (e.g., "executing", "verifying", "complete"). |
@@ -49,7 +49,7 @@ claude
 Then in the Claude session:
 
 ```
-/init ~/my-project
+/noyeah-init ~/my-project
 ```
 
 This creates the `.harness/` directory in your project with everything noyeah-harness needs.
@@ -67,7 +67,7 @@ the top.
 Open Claude Code in your project and type:
 
 ```
-/ralph "add a README.md with project description, setup instructions, and usage examples"
+/noyeah-ralph "add a README.md with project description, setup instructions, and usage examples"
 ```
 
 ### What happens
@@ -102,7 +102,7 @@ deliberate on the approach before any code is written:
 ### Try it
 
 ```
-/ralplan "add user authentication with email and password"
+/noyeah-ralplan "add user authentication with email and password"
 ```
 
 ### What happens
@@ -114,7 +114,7 @@ and the cycle repeats (up to 3 rounds). The result is a reviewed plan saved at
 Once approved, you can execute the plan with Ralph:
 
 ```
-/ralph "execute the approved auth plan"
+/noyeah-ralph "execute the approved auth plan"
 ```
 
 ### When to use Ralplan
@@ -130,7 +130,7 @@ Once approved, you can execute the plan with Ralph:
 For end-to-end delivery, **Autopilot** chains everything together:
 
 ```
-/autopilot "build a REST API for user management with CRUD operations"
+/noyeah-autopilot "build a REST API for user management with CRUD operations"
 ```
 
 ### What happens
@@ -164,10 +164,10 @@ organized by failure type.
 
 | Situation | What to do |
 |-----------|------------|
-| Everything is stuck | `/cancel` to stop, then start fresh |
-| State files are corrupted | `/cancel --force` to clear all state |
-| Session was interrupted | `/resume` to continue from where you left off |
-| Want to see what's running | `/status` to view the dashboard |
+| Everything is stuck | `/noyeah-cancel` to stop, then start fresh |
+| State files are corrupted | `/noyeah-cancel --force` to clear all state |
+| Session was interrupted | `/noyeah-resume` to continue from where you left off |
+| Want to see what's running | `/noyeah-status` to view the dashboard |
 
 ---
 
@@ -177,18 +177,18 @@ organized by failure type.
 
 | I want to... | Skill | Command |
 |--------------|-------|---------|
-| Fix a bug | Ralph | `/ralph "fix the login error"` |
-| Build a feature | Ralplan + Ralph | `/ralplan "add search"` then `/ralph "execute plan"` |
-| Do everything automatically | Autopilot | `/autopilot "build user profiles"` |
-| Do multiple things at once | Ultrawork | `/ultrawork "1. Add types 2. Write tests 3. Update docs"` |
-| Figure out requirements | Deep Interview | `/deep-interview "what does the auth system need?"` |
-| Check visual design | Visual Verdict | `/visual-verdict` |
+| Fix a bug | Ralph | `/noyeah-ralph "fix the login error"` |
+| Build a feature | Ralplan + Ralph | `/noyeah-ralplan "add search"` then `/noyeah-ralph "execute plan"` |
+| Do everything automatically | Autopilot | `/noyeah-autopilot "build user profiles"` |
+| Do multiple things at once | Ultrawork | `/noyeah-ultrawork "1. Add types 2. Write tests 3. Update docs"` |
+| Figure out requirements | Deep Interview | `/noyeah-deep-interview "what does the auth system need?"` |
+| Check visual design | Visual Verdict | `/noyeah-visual-verdict` |
 | Save tokens / reduce cost | Ecomode | `eco ralph "implement caching"` |
-| Coordinate a team | Team | `/team 3:executor "build auth, payments, notifications"` |
-| Review what we learned | Retro | `/retro` |
-| Stop everything | Cancel | `/cancel` |
-| See current status | Status | `/status` |
-| Continue interrupted work | Resume | `/resume` |
+| Coordinate a team | Team | `/noyeah-team 3:executor "build auth, payments, notifications"` |
+| Review what we learned | Retro | `/noyeah-retro` |
+| Stop everything | Cancel | `/noyeah-cancel` |
+| See current status | Status | `/noyeah-status` |
+| Continue interrupted work | Resume | `/noyeah-resume` |
 
 ---
 

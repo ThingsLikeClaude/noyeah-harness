@@ -53,14 +53,14 @@ persists indefinitely and informs future work.
 
 ## When to Write Memory
 
-- After `/ralplan` completes: save key decisions and ADRs
-- After `/ralph` encounters a recurring issue: save the learning
+- After `/noyeah-ralplan` completes: save key decisions and ADRs
+- After `/noyeah-ralph` encounters a recurring issue: save the learning
 - After security review: save findings as patterns
 - When user states a preference: save it immediately
 
 ## When to Read Memory
 
-- Before `/ralplan`: check for relevant past decisions
+- Before `/noyeah-ralplan`: check for relevant past decisions
 - Before agent dispatch: include relevant patterns in context
 - Before security review: check for known vulnerability patterns
 - At session start: scan for relevant context
@@ -99,7 +99,7 @@ Existing fields (`id`, `type`, `timestamp`, `content`, `context`, `tags`) remain
 
 ## Structured Write Protocol (Retro)
 
-When `/retro` writes learnings to `project-memory.json`:
+When `/noyeah-retro` writes learnings to `project-memory.json`:
 
 1. **READ** the entire `project-memory.json` file
 2. **CHECK** for existing learning entries with similar content + category
@@ -141,4 +141,4 @@ When dispatching agents, read learnings from `project-memory.json`:
 | Lifespan | Indefinite | Until mode completes |
 | Purpose | Cross-session learnings | Active mode tracking |
 | Location | `.harness/memory/` | `.harness/state/` |
-| Cleanup | Manual or on project end | On `/cancel` |
+| Cleanup | Manual or on project end | On `/noyeah-cancel` |

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 // retro-check.js -- PostToolUse hook (matcher: Write|Edit)
-// Reminds to run /retro after Ralph completes if no recent learnings exist.
+// Reminds to run /noyeah-retro after Ralph completes if no recent learnings exist.
 // Exits 0 silently on any error (graceful no-op).
 
 const fs = require('fs');
@@ -73,7 +73,7 @@ async function main() {
   if (hasRecentLearning) { process.exit(0); }
 
   process.stdout.write(
-    'Ralph completed. Run /retro to capture learnings from this run.\n'
+    'Ralph completed. Run /noyeah-retro to capture learnings from this run.\n'
   );
   process.exit(0);
 }

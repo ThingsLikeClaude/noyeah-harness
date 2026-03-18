@@ -1,5 +1,5 @@
 ---
-name: ralplan
+name: noyeah-ralplan
 description: Consensus planning via Planner -> Architect -> Critic
 ---
 # RALPLAN - Consensus Planning with Deliberation
@@ -15,7 +15,7 @@ Critic validates. The result is an approved plan with Architecture Decision Reco
 - User says "ralplan", "plan consensus", "deliberate", "plan carefully"
 - Complex feature requiring multi-file changes
 - Architectural decisions that need explicit tradeoff analysis
-- Before starting a `/ralph` or `/autopilot` run
+- Before starting a `/noyeah-ralph` or `/noyeah-autopilot` run
 
 ## Do Not Use When
 
@@ -90,7 +90,7 @@ Agent(
 
 ### Resolution
 
-- **All approve**: Plan is ready. Proceed to `/ralph` or `/autopilot`.
+- **All approve**: Plan is ready. Proceed to `/noyeah-ralph` or `/noyeah-autopilot`.
 - **Revision needed**: Planner revises based on feedback. Re-run rounds 2-3.
 - **Max 3 revision rounds.** If no consensus after 3 rounds, present options to user.
 
@@ -152,7 +152,7 @@ The final plan at `.harness/plans/plan-{slug}.md`:
 
 ## State Management
 
-Write to `.harness/state/ralplan-state.json`:
+Write to `.harness/state/noyeah-ralplan-state.json`:
 
 ```json
 {

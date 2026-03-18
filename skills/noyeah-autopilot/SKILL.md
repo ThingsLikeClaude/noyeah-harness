@@ -1,5 +1,5 @@
 ---
-name: autopilot
+name: noyeah-autopilot
 description: Full autonomous pipeline from idea to verified implementation
 ---
 # Autopilot - End-to-End Autonomous Pipeline
@@ -7,8 +7,8 @@ description: Full autonomous pipeline from idea to verified implementation
 ## Purpose
 
 Takes a 2-3 line product idea and delivers a verified implementation through 6 phases.
-This is the highest-level orchestration mode -- it composes `/ralplan` for planning
-and `/ralph` for persistent execution.
+This is the highest-level orchestration mode -- it composes `/noyeah-ralplan` for planning
+and `/noyeah-ralph` for persistent execution.
 
 ## Use When
 
@@ -19,28 +19,28 @@ and `/ralph` for persistent execution.
 ## Do Not Use When
 
 - Task is a simple bug fix (use executor directly)
-- User wants to control planning manually (use `/ralplan` then `/ralph`)
-- User wants parallel fan-out only (use `/ultrawork`)
+- User wants to control planning manually (use `/noyeah-ralplan` then `/noyeah-ralph`)
+- User wants parallel fan-out only (use `/noyeah-ultrawork`)
 
 ## Phases
 
 ### Phase 0: Pre-Context Intake
 
-1. Create context snapshot at `.harness/context/autopilot-{slug}-{timestamp}.md`
+1. Create context snapshot at `.harness/context/noyeah-autopilot-{slug}-{timestamp}.md`
 2. If request is vague, explore codebase first, then run brief Socratic interview (max 5 questions)
 3. Do not proceed until context snapshot exists
 
-### Phase 1: Planning (via /ralplan)
+### Phase 1: Planning (via /noyeah-ralplan)
 
-1. Invoke `/ralplan` with the task description
+1. Invoke `/noyeah-ralplan` with the task description
 2. Output: approved plan at `.harness/plans/plan-{slug}.md`
 3. Gate: implementation is blocked until plan exists and is approved
 
-### Phase 2: Execution (via /ralph)
+### Phase 2: Execution (via /noyeah-ralph)
 
-1. Invoke `/ralph` with the approved plan
+1. Invoke `/noyeah-ralph` with the approved plan
 2. Ralph handles: parallel delegation, iteration, persistence
-3. State tracked in `.harness/state/ralph-state.json`
+3. State tracked in `.harness/state/noyeah-ralph-state.json`
 
 ### Phase 3: QA Cycling (up to 5 cycles)
 
@@ -74,13 +74,13 @@ All three must approve. Any rejection -> fix and re-review.
 ### Phase 5: Cleanup & Report
 
 1. Update state to `complete`
-2. Run `/retro` to capture learnings from this run
-3. Run `/cancel` for clean state cleanup
+2. Run `/noyeah-retro` to capture learnings from this run
+3. Run `/noyeah-cancel` for clean state cleanup
 4. Report: what was built, evidence of completion, any caveats
 
 ## State Management
 
-Write to `.harness/state/autopilot-state.json`:
+Write to `.harness/state/noyeah-autopilot-state.json`:
 
 ```json
 {

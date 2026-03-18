@@ -3,15 +3,15 @@
 ## Composition Model
 
 ```
-/autopilot (full lifecycle)
+/noyeah-autopilot (full lifecycle)
   |
-  ├── /ralplan (consensus planning)
+  ├── /noyeah-ralplan (consensus planning)
   │     ├── planner (opus) -- proposes
   │     ├── architect (opus) -- challenges
   │     └── critic (opus) -- validates
   │
-  ├── /ralph (persistent execution loop)
-  │     ├── /ultrawork (parallel dispatch)
+  ├── /noyeah-ralph (persistent execution loop)
+  │     ├── /noyeah-ultrawork (parallel dispatch)
   │     │     ├── executor (sonnet) -- implements
   │     │     ├── debugger (sonnet) -- fixes
   │     │     ├── explorer (haiku) -- searches

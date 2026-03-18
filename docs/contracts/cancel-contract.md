@@ -41,7 +41,7 @@ For ANY mode cancellation:
 
 ## Force Mode
 
-`/cancel --force` deletes ALL state files without terminalization:
+`/noyeah-cancel --force` deletes ALL state files without terminalization:
 - `rm -f .harness/state/*.json`
 - Reports: "All harness modes cleared. Fresh start."
 
@@ -49,7 +49,7 @@ For ANY mode cancellation:
 
 | Mode | State Preserved After Cancel? | Resume Possible? |
 |------|-------------------------------|-----------------|
-| Autopilot | Yes (phase, plan paths) | Yes (`/resume autopilot`) |
+| Autopilot | Yes (phase, plan paths) | Yes (`/noyeah-resume autopilot`) |
 | Ralph | No | No |
 | Ultrawork | No | No |
 | Team | No | No |

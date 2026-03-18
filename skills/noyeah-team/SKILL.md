@@ -1,5 +1,5 @@
 ---
-name: team
+name: noyeah-team
 description: Coordinated multi-agent team with leader-worker protocol
 ---
 # Team - Coordinated Multi-Agent Execution
@@ -7,7 +7,7 @@ description: Coordinated multi-agent team with leader-worker protocol
 ## Purpose
 
 Launch multiple specialist agents as a coordinated team with a leader-worker protocol.
-Unlike `/ultrawork` (simple fan-out), Team provides:
+Unlike `/noyeah-ultrawork` (simple fan-out), Team provides:
 - Shared task tracking
 - Worker status monitoring
 - Leader coordination
@@ -22,21 +22,21 @@ Unlike `/ultrawork` (simple fan-out), Team provides:
 
 ## Do Not Use When
 
-- Tasks are fully independent (use `/ultrawork`)
+- Tasks are fully independent (use `/noyeah-ultrawork`)
 - Single-agent task (delegate directly)
-- Need full lifecycle (use `/autopilot`)
+- Need full lifecycle (use `/noyeah-autopilot`)
 
 ## Team Launch
 
 ```
-/team {count}:{role} "task description"
+/noyeah-team {count}:{role} "task description"
 ```
 
 Examples:
 ```
-/team 3:executor "implement auth, payments, and notifications modules"
-/team 2:executor "frontend and backend for user dashboard"
-/team ralph 3:executor "implement with Ralph verification after team"
+/noyeah-team 3:executor "implement auth, payments, and notifications modules"
+/noyeah-team 2:executor "frontend and backend for user dashboard"
+/noyeah-team ralph 3:executor "implement with Ralph verification after team"
 ```
 
 ## Execution Protocol
@@ -103,14 +103,14 @@ After all workers complete:
 
 ### 5. Team + Ralph (Linked Launch)
 
-When `/team ralph` is used:
+When `/noyeah-team ralph` is used:
 - After team completion, automatically enter Ralph loop
 - Ralph verifies the combined team output
 - Linked state: team state records `linked_ralph: true`
 
 ## State Management
 
-Write to `.harness/state/team-state.json`:
+Write to `.harness/state/noyeah-team-state.json`:
 
 ```json
 {
@@ -143,7 +143,7 @@ Worker status vocabulary: `pending` -> `in_progress` -> `completed` | `failed` |
 
 ### Force Shutdown
 ```
-/cancel --force
+/noyeah-cancel --force
 ```
 Immediately terminates all workers.
 

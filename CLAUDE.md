@@ -24,16 +24,16 @@ User
 ## Composition Model
 
 ```
-/autopilot (full lifecycle: idea -> verified code)
+/noyeah-autopilot (full lifecycle: idea -> verified code)
   |
-  ├── /deep-interview (requirements gathering)
-  ├── /ralplan (consensus planning)
+  ├── /noyeah-deep-interview (requirements gathering)
+  ├── /noyeah-ralplan (consensus planning)
   │     ├── planner (opus) -- proposes
   │     ├── architect (opus) -- challenges
   │     └── critic (opus) -- validates
   │
-  ├── /ralph (persistent execution loop, max 10 iterations)
-  │     ├── /ultrawork (parallel dispatch)
+  ├── /noyeah-ralph (persistent execution loop, max 10 iterations)
+  │     ├── /noyeah-ultrawork (parallel dispatch)
   │     │     ├── executor (sonnet) -- implements
   │     │     ├── debugger (sonnet) -- fixes
   │     │     ├── test-engineer (sonnet) -- tests
@@ -42,24 +42,24 @@ User
   │     │     ├── writer (haiku) -- documents
   │     │     └── integrator (sonnet) -- merges parallel outputs
   │     │
-  │     ├── /visual-verdict (screenshot QA, when visual)
+  │     ├── /noyeah-visual-verdict (screenshot QA, when visual)
   │     └── verifier (sonnet) -- proves completion
   │           └── architect (sonnet/opus) -- final review
   │
-  ├── /ultraqa (QA cycling, up to 5 rounds)
+  ├── /noyeah-ultraqa (QA cycling, up to 5 rounds)
   └── Multi-perspective validation (3 parallel reviews)
 
-/team (coordinated multi-agent execution)
+/noyeah-team (coordinated multi-agent execution)
   ├── Leader (you) coordinates
   ├── Worker agents (background, up to 6)
-  └── Optional: /team ralph (linked lifecycle)
+  └── Optional: /noyeah-team ralph (linked lifecycle)
 
-/ecomode (cost modifier, shifts tiers down by one)
+/noyeah-ecomode (cost modifier, shifts tiers down by one)
   └── Combines with: ralph, ultrawork, autopilot
 
-/cancel (clean termination of any active mode)
-/nystatus (dashboard of active modes)
-/resume (continue interrupted work)
+/noyeah-cancel (clean termination of any active mode)
+/noyeah-status (dashboard of active modes)
+/noyeah-resume (continue interrupted work)
 ```
 
 ---
@@ -68,20 +68,20 @@ User
 
 | Skill | Type | Description | Invocation |
 |-------|------|-------------|------------|
-| ralph | Loop | Persistence loop until architect-verified completion | `/ralph "task"` |
-| autopilot | Pipeline | Full lifecycle: interview -> plan -> execute -> verify | `/autopilot "task"` |
-| ultrawork | Dispatch | Parallel agent dispatch for independent tasks | `/ultrawork "tasks"` |
-| ralplan | Planning | Consensus: Planner -> Architect -> Critic -> ADR | `/ralplan "goal"` |
-| ecomode | Modifier | Shift tiers down by one for cost savings | `/ecomode on` / `eco ralph` |
-| ultraqa | Loop | QA cycling: run checks -> diagnose -> fix -> repeat (5x) | `/ultraqa` |
-| team | Coordination | Multi-agent team with leader-worker protocol | `/team 3:executor "task"` |
-| deep-interview | Discovery | Socratic requirements gathering (quick/full) | `/deep-interview "task"` |
-| visual-verdict | QA | Screenshot comparison with structured scoring | `/visual-verdict` |
-| retro | Analysis | Post-completion retrospective, extracts learnings | `/retro` |
-| init | Setup | Initialize target project with harness runtime and hooks | `/init ~/my-project` |
-| cancel | Cleanup | Cancel any active mode, clean up state | `/cancel` / `/cancel --force` |
-| status | Info | Show active modes and current state | `/nystatus` |
-| resume | Recovery | Continue interrupted work from saved state | `/resume` |
+| ralph | Loop | Persistence loop until architect-verified completion | `/noyeah-ralph "task"` |
+| autopilot | Pipeline | Full lifecycle: interview -> plan -> execute -> verify | `/noyeah-autopilot "task"` |
+| ultrawork | Dispatch | Parallel agent dispatch for independent tasks | `/noyeah-ultrawork "tasks"` |
+| ralplan | Planning | Consensus: Planner -> Architect -> Critic -> ADR | `/noyeah-ralplan "goal"` |
+| ecomode | Modifier | Shift tiers down by one for cost savings | `/noyeah-ecomode on` / `eco ralph` |
+| ultraqa | Loop | QA cycling: run checks -> diagnose -> fix -> repeat (5x) | `/noyeah-ultraqa` |
+| team | Coordination | Multi-agent team with leader-worker protocol | `/noyeah-team 3:executor "task"` |
+| deep-interview | Discovery | Socratic requirements gathering (quick/full) | `/noyeah-deep-interview "task"` |
+| visual-verdict | QA | Screenshot comparison with structured scoring | `/noyeah-visual-verdict` |
+| retro | Analysis | Post-completion retrospective, extracts learnings | `/noyeah-retro` |
+| init | Setup | Initialize target project with harness runtime and hooks | `/noyeah-init ~/my-project` |
+| cancel | Cleanup | Cancel any active mode, clean up state | `/noyeah-cancel` / `/noyeah-cancel --force` |
+| status | Info | Show active modes and current state | `/noyeah-status` |
+| resume | Recovery | Continue interrupted work from saved state | `/noyeah-resume` |
 
 ---
 
@@ -135,8 +135,8 @@ User
 | `docs/project-memory.md` | Cross-session memory system |
 | `docs/notepad.md` | Session scratchpad |
 | `docs/codebase-map.md` | Project structure overview |
-| `docs/contracts/ralph-state-contract.md` | Ralph state schema (frozen) |
-| `docs/contracts/cancel-contract.md` | Cancellation protocol |
+| `docs/contracts/noyeah-ralph-state-contract.md` | Ralph state schema (frozen) |
+| `docs/contracts/noyeah-cancel-contract.md` | Cancellation protocol |
 | `docs/contracts/core-contracts.md` | I/O contract schemas for 5 core chained agents |
 | `docs/contracts/dispatch-templates.md` | Dispatch templates for 6 non-core agents |
 | `docs/learning-injection.md` | Learning auto-injection protocol |

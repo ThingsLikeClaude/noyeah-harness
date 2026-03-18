@@ -17,7 +17,7 @@ That's it. Claude Code reads `CLAUDE.md` and loads the harness automatically.
 To use noyeah-harness in your own project:
 
 ```
-/init ~/my-project
+/noyeah-init ~/my-project
 ```
 
 This will:
@@ -26,14 +26,14 @@ This will:
 3. Merge hook configuration into `.claude/settings.json` (preserves existing settings)
 4. Add a noyeah-harness reference block to your project's `CLAUDE.md`
 
-Re-running `/init` on an already initialized project safely updates hooks and settings without touching your data.
+Re-running `/noyeah-init` on an already initialized project safely updates hooks and settings without touching your data.
 
 ## Basic Usage
 
 ### Ralph - "Don't stop until it's done"
 
 ```
-/ralph "implement OAuth callback with full error handling and tests"
+/noyeah-ralph "implement OAuth callback with full error handling and tests"
 ```
 
 Ralph will:
@@ -47,7 +47,7 @@ Ralph will:
 ### Autopilot - "Ship it end to end"
 
 ```
-/autopilot "build a REST API for user management with CRUD operations"
+/noyeah-autopilot "build a REST API for user management with CRUD operations"
 ```
 
 Autopilot will:
@@ -60,7 +60,7 @@ Autopilot will:
 ### Ultrawork - "Do these in parallel"
 
 ```
-/ultrawork "1. Add type exports for all models 2. Write tests for auth module 3. Update API docs"
+/noyeah-ultrawork "1. Add type exports for all models 2. Write tests for auth module 3. Update API docs"
 ```
 
 Dispatches all independent tasks simultaneously.
@@ -68,7 +68,7 @@ Dispatches all independent tasks simultaneously.
 ### Ralplan - "Plan carefully before coding"
 
 ```
-/ralplan "redesign the caching layer to support Redis and in-memory"
+/noyeah-ralplan "redesign the caching layer to support Redis and in-memory"
 ```
 
 Sequential deliberation: Planner -> Architect -> Critic.
@@ -76,8 +76,8 @@ Sequential deliberation: Planner -> Architect -> Critic.
 ### Cancel - "Stop everything"
 
 ```
-/cancel
-/cancel --force  # clear all state
+/noyeah-cancel
+/noyeah-cancel --force  # clear all state
 ```
 
 ## Tier Quick Reference

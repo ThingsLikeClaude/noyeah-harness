@@ -242,8 +242,8 @@ main() {
   echo ""
   echo "  Next steps:"
   echo "    1. Restart Claude Code to load the new config"
-  echo "    2. Run /status to verify harness is active"
-  echo "    3. Try /ralph \"your first task\" to test"
+  echo "    2. Run /noyeah-status to verify harness is active"
+  echo "    3. Try /noyeah-ralph \"your first task\" to test"
   echo ""
 }
 

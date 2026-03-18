@@ -16,4 +16,4 @@ Before any major workflow (ralph, autopilot, team), create a context snapshot:
 
 Save to `.harness/context/{slug}-{timestamp}.md`
 
-If ambiguity is high: run `/deep-interview --quick` first.
+If ambiguity is high: run `/noyeah-deep-interview --quick` first.

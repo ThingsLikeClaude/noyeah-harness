@@ -1,5 +1,5 @@
 ---
-name: nystatus
+name: noyeah-status
 description: Show active harness modes and current state
 ---
 # Status - Harness State Dashboard
@@ -12,7 +12,7 @@ Designed for at-a-glance comprehension, including for users new to noyeah-harnes
 ## Usage
 
 ```
-/status
+/noyeah-status
 ```
 
 ## Display Format
@@ -71,14 +71,14 @@ When any mode has `"current_phase": "failed"`, display actionable guidance:
 ```
 ATTENTION: Ralph failed at iteration 10/10
   Last phase: verifying
-  Suggestion: Run /cancel, then try splitting the task with /ralplan
+  Suggestion: Run /noyeah-cancel, then try splitting the task with /noyeah-ralplan
   See: docs/failure-recovery.md
 ```
 
 Failure suggestions by mode:
-- **Ralph failed**: "Run /cancel, then try splitting the task with /ralplan"
-- **UltraQA failed**: "Run /cancel. Check for flaky tests or environment issues"
-- **Ralplan revision limit**: "Consider running /deep-interview to clarify requirements"
+- **Ralph failed**: "Run /noyeah-cancel, then try splitting the task with /noyeah-ralplan"
+- **UltraQA failed**: "Run /noyeah-cancel. Check for flaky tests or environment issues"
+- **Ralplan revision limit**: "Consider running /noyeah-deep-interview to clarify requirements"
 
 ### Memory & Context Summary
 

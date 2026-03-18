@@ -29,13 +29,13 @@ User: "Fix the 404 on /api/users"
 ### 2. Planned Feature (Recommended Default)
 
 ```
-/ralplan "add user profile editing"
+/noyeah-ralplan "add user profile editing"
   -> Planner (THOROUGH) creates plan
   -> Architect (THOROUGH) challenges
   -> Critic (THOROUGH) validates
   -> Plan approved
 
-/ralph "execute the approved plan"
+/noyeah-ralph "execute the approved plan"
   -> Iteration 1: Executor implements (STANDARD)
   -> Iteration 2: Verifier checks (STANDARD)
   -> Iteration 3: Architect reviews (STANDARD/THOROUGH)
@@ -47,7 +47,7 @@ User: "Fix the 404 on /api/users"
 ### 3. Full Autopilot
 
 ```
-/autopilot "build a REST API for user management"
+/noyeah-autopilot "build a REST API for user management"
   -> Deep interview (quick mode)
   -> Ralplan consensus planning
   -> Ralph execution loop
@@ -59,7 +59,7 @@ User: "Fix the 404 on /api/users"
 ### 4. Parallel Fan-Out
 
 ```
-/ultrawork "1. Add type exports 2. Write auth tests 3. Update API docs"
+/noyeah-ultrawork "1. Add type exports 2. Write auth tests 3. Update API docs"
   -> Explorer (LOW) x1: type scan
   -> Executor (STANDARD) x1: auth tests
   -> Writer (LOW) x1: API docs
@@ -69,7 +69,7 @@ User: "Fix the 404 on /api/users"
 ### 5. Team Coordination
 
 ```
-/team 3:executor "implement auth, payments, and notifications"
+/noyeah-team 3:executor "implement auth, payments, and notifications"
   -> Worker 1 (STANDARD): auth module
   -> Worker 2 (STANDARD): payments module
   -> Worker 3 (STANDARD): notifications module
@@ -80,7 +80,7 @@ User: "Fix the 404 on /api/users"
 ### 6. Team + Ralph (Strongest Combo)
 
 ```
-/team ralph 3:executor "implement the approved plan"
+/noyeah-team ralph 3:executor "implement the approved plan"
   -> Team executes in parallel
   -> Ralph verifies the combined output
   -> Architect reviews the integration
@@ -99,7 +99,7 @@ eco ralph "implement caching layer"
 ### 8. Visual Task
 
 ```
-/ralph "match this design" -i reference.png
+/noyeah-ralph "match this design" -i reference.png
   -> Each iteration:
     1. Implement changes
     2. Take screenshot

@@ -7,8 +7,8 @@ Each Claude Code session within the harness has:
 ```
 Session Start
   -> Load CLAUDE.md (orchestration brain)
-  -> Check for active modes (/status)
-  -> If resumable mode found: offer /resume
+  -> Check for active modes (/noyeah-status)
+  -> If resumable mode found: offer /noyeah-resume
   -> If not: ready for new work
 
 Session Active
@@ -20,7 +20,7 @@ Session Active
 
 Session End
   -> Active modes remain in state files
-  -> Resume possible in next session via /resume
+  -> Resume possible in next session via /noyeah-resume
   -> Memory and plans persist
 ```
 
@@ -59,6 +59,6 @@ On detection:
 ```
 WARNING: Found stale Ralph state from 2026-03-12 (26 hours ago).
 This was likely interrupted. Options:
-  /resume ralph  -- Continue from where it left off
-  /cancel        -- Clean up and start fresh
+  /noyeah-resume ralph  -- Continue from where it left off
+  /noyeah-cancel        -- Clean up and start fresh
 ```

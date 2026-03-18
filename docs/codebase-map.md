@@ -71,5 +71,5 @@ public/         # Static assets
 ## When to Reference
 
 - Include relevant sections in agent dispatch prompts
-- Before `/ralplan` to inform planning
-- Before `/team` to assign worker boundaries
+- Before `/noyeah-ralplan` to inform planning
+- Before `/noyeah-team` to assign worker boundaries

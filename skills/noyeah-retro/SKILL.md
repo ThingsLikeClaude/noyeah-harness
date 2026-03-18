@@ -1,5 +1,5 @@
 ---
-name: retro
+name: noyeah-retro
 description: Post-completion retrospective analysis that extracts learnings
 ---
 # Retro - Post-Completion Retrospective
@@ -15,8 +15,8 @@ differently next time.
 
 ## Use When
 
-- After `/ralph` completes (called automatically in Step 5)
-- After `/autopilot` completes (called automatically in Phase 5)
+- After `/noyeah-ralph` completes (called automatically in Step 5)
+- After `/noyeah-autopilot` completes (called automatically in Phase 5)
 - User says "retro", "retrospective", "what did we learn", "capture learnings"
 - Any time you want to extract structured learnings from a recent run
 
@@ -33,9 +33,9 @@ differently next time.
 
 Read all three state files. Treat missing files as absent (not an error):
 
-- `.harness/state/ralph-state.json`
-- `.harness/state/autopilot-state.json`
-- `.harness/state/ultrawork-state.json`
+- `.harness/state/noyeah-ralph-state.json`
+- `.harness/state/noyeah-autopilot-state.json`
+- `.harness/state/noyeah-ultrawork-state.json`
 
 ### Step 2: Read Harness Log
 
@@ -72,7 +72,7 @@ Only when the log file exists and contains relevant entries:
 - **Phase distribution**: How much time was spent in each phase (`executing`, `verifying`, `fixing`)
 - **Failure patterns**: Recurring error types across iterations
 - **Escalation events**: Times the same issue appeared 3+ times (3-strike escalation)
-- **Parallel efficiency**: Whether ultrawork/team delegation reduced iteration count
+- **Parallel efficiency**: Whether ultrawork/noyeah-team delegation reduced iteration count
 
 If the log file does not exist, note "log unavailable" for these fields -- do not invent data.
 

@@ -14,7 +14,7 @@ When a skill or agent needs context, it reads from these sources:
 ### 1. Active Mode State
 
 ```bash
-cat .harness/state/ralph-state.json  # Current phase, iteration, etc.
+cat .harness/state/noyeah-ralph-state.json  # Current phase, iteration, etc.
 ```
 
 ### 2. Codebase Map

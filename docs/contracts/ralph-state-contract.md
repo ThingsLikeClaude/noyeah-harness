@@ -73,7 +73,7 @@ When Ralph is cancelled:
 
 ## State File Location
 
-Primary: `.harness/state/ralph-state.json`
+Primary: `.harness/state/noyeah-ralph-state.json`
 
 ## Invariants
 
