@@ -14,6 +14,7 @@
 | interview, clarify, what do I need | `/noyeah-deep-interview` | Requirements gathering |
 | visual check, does this look right, match this design | `/noyeah-visual-verdict` | Screenshot QA |
 | retro, retrospective, what did we learn | `/noyeah-retro` | Post-completion learnings |
+| skill scout, find skills, discover skills, what skills, install skills | `/noyeah-skill-scout` | Auto skill discovery |
 | init, initialize, setup harness, bootstrap | `/noyeah-init` | Project initialization |
 | cancel, stop, abort | `/noyeah-cancel` | Clean termination |
 | status, what's running, active modes | `/noyeah-status` | State dashboard |

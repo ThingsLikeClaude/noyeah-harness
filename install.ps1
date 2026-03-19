@@ -199,9 +199,48 @@ function Install-MCPs {
     }
 }
 
-# ── Step 8: Write metadata ──────────────────
+# ── Step 8: Skills CLI setup ──────────────────
+function Install-SkillsCLI {
+    Write-Info "Step 8/9: Skills CLI setup..."
+    Write-Host ""
+    Write-Host "  noyeah-harness uses skills.sh to auto-discover project-relevant skills."
+    Write-Host "  The /noyeah-skill-scout skill requires 'npx skills' CLI."
+    Write-Host ""
+
+    # Check if npx skills works
+    try {
+        $null = & npx skills --version 2>$null
+        Write-Ok "Skills CLI is available via npx"
+    } catch {
+        Write-Warn "Skills CLI not reachable. /noyeah-skill-scout will use npx on-demand."
+    }
+
+    # Check if find-skills is globally installed
+    $findSkillsDir = Join-Path $ClaudeDir "skills\find-skills"
+    if (Test-Path $findSkillsDir) {
+        Write-Ok "find-skills is already installed globally"
+    } else {
+        Write-Host ""
+        Write-Host "  find-skills helps discover community skills from skills.sh."
+        $answer = Read-Host "Install find-skills skill globally? (recommended) (y/N)"
+
+        if ($answer -eq "y") {
+            try {
+                & npx skills add anthropics/skills@find-skills -g -y 2>$null
+                Write-Ok "Installed find-skills globally"
+            } catch {
+                Write-Warn "Failed to install find-skills (you can install manually later)"
+                Write-Warn "  npx skills add anthropics/skills@find-skills -g -y"
+            }
+        } else {
+            Write-Ok "Skipped find-skills install."
+        }
+    }
+}
+
+# ── Step 9: Write metadata ──────────────────
 function Write-Metadata {
-    Write-Info "Step 8/8: Writing metadata..."
+    Write-Info "Step 9/9: Writing metadata..."
 
     $now = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
 
@@ -248,6 +287,7 @@ function Main {
     Set-Settings
     New-LocalSettings
     Install-MCPs
+    Install-SkillsCLI
     Write-Metadata
 
     Write-Host ""

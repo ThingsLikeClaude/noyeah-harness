@@ -15,7 +15,7 @@ User
   -> noyeah-harness (this project)
     -> Claude Code (execution engine)
     -> CLAUDE.md (orchestration brain - this file)
-    -> skills/ (14 workflow definitions)
+    -> skills/ (15 workflow definitions)
     -> agents/ (13 role prompts for subagents)
     -> .harness/ (runtime state, plans, context, memory, logs)
     -> docs/ (contracts, workflows, system design)
@@ -26,6 +26,7 @@ User
 ```
 /noyeah-autopilot (full lifecycle: idea -> verified code)
   |
+  ├── /noyeah-skill-scout (auto skill discovery from skills.sh)
   ├── /noyeah-deep-interview (requirements gathering)
   │     └── explorer (haiku) -- parallel codebase search during Q&A
   │
@@ -77,7 +78,7 @@ User
 
 ---
 
-## Available Skills (14)
+## Available Skills (15)
 
 | Skill | Type | Description | Invocation |
 |-------|------|-------------|------------|
@@ -89,6 +90,7 @@ User
 | ultraqa | Loop | QA cycling: run checks -> diagnose -> fix -> repeat (5x) | `/noyeah-ultraqa` |
 | team | Coordination | Multi-agent team with leader-worker protocol | `/noyeah-team 3:executor "task"` |
 | deep-interview | Discovery | Socratic requirements gathering (quick/full) | `/noyeah-deep-interview "task"` |
+| skill-scout | Discovery | Auto-detect tech stack, discover and install skills from skills.sh | `/noyeah-skill-scout` |
 | visual-verdict | QA | Screenshot comparison with structured scoring | `/noyeah-visual-verdict` |
 | retro | Analysis | Post-completion retrospective, extracts learnings | `/noyeah-retro` |
 | init | Setup | Initialize target project with harness runtime and hooks | `/noyeah-init ~/my-project` |

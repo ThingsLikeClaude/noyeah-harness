@@ -5,6 +5,7 @@
 ```
 /noyeah-autopilot (full lifecycle)
   |
+  ├── /noyeah-skill-scout (auto skill discovery)
   ├── researcher (sonnet) -- competitive intelligence [auto: greenfield tasks]
   │
   ├── /noyeah-ralplan (consensus planning)
@@ -49,7 +50,8 @@
 | ultrawork | - | ralph |
 | ralph | ultrawork | autopilot |
 | ralplan | - | autopilot |
-| autopilot | ralplan + ralph | - |
+| skill-scout | - | autopilot |
+| autopilot | skill-scout + ralplan + ralph | - |
 | cancel | - | - |
 
 ## State Flow
