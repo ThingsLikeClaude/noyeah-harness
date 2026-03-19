@@ -131,44 +131,132 @@ For each iteration:
    b. Skip test-engineer dispatch
    ```
 
-4. **Delegate in parallel**: Route to specialist agents at appropriate tiers
+4. **Security gate (after GREEN/implementation)**: If the task involves auth, user input,
+   API endpoints, or database operations, dispatch security-reviewer IN PARALLEL with
+   the next iteration prep:
+
+   ```
+   Agent(
+     name: "security-gate",
+     model: "opus",
+     prompt: "Read agents/security-reviewer.md. Review these changes: {files_changed}.
+       Focus on: {auth|input-validation|API|DB} aspects.
+       Output SECURITY REVIEW with verdict: BLOCK | FIX_BEFORE_MERGE | ACCEPTABLE",
+     run_in_background: true
+   )
+   ```
+
+   **Verdict handling:**
+   - `BLOCK` → pause execution, surface findings to user immediately
+   - `FIX_BEFORE_MERGE` → add security fixes to next iteration TODO
+   - `ACCEPTABLE` → log findings and continue
+
+   This gate is **non-blocking**: execution proceeds while security review runs in background.
+
+5. **Debugger auto-escalation**: Track `error_signature` → count in ralph-state.json
+   under `failure_tracking`:
+
+   ```json
+   "failure_tracking": {
+     "error_abc123": { "signature": "Cannot read property 'id'", "count": 2, "files": ["src/api/users.ts"] }
+   }
+   ```
+
+   - Same error appearing **2+ times** → dispatch debugger(sonnet) INSTEAD of executor:
+     ```
+     Agent(
+       name: "debugger-escalation",
+       model: "sonnet",
+       prompt: "Read agents/debugger.md. This error has recurred {count} times.
+         Error: {signature}. Affected files: {files}.
+         Follow your 5-step protocol: REPRODUCE → GATHER → HYPOTHESIZE → FIX → VERIFY."
+     )
+     ```
+   - Reset count after successful fix
+   - Build failures do NOT count toward debugger escalation (handled separately)
+
+6. **Build-fixer auto-dispatch**: On build failure, dispatch build-fixer IN PARALLEL:
+
+   ```
+   Agent(
+     name: "build-fix",
+     model: "sonnet",
+     prompt: "Read agents/build-fixer.md. Build command: {cmd}. Output: {error_output}.
+       Apply minimal fixes only.",
+     run_in_background: true
+   )
+   ```
+
+   Executor continues non-build tasks while build-fixer works.
+
+7. **Delegate in parallel**: Route to specialist agents at appropriate tiers
    - Simple lookups: LOW tier (model: haiku)
    - Standard work: STANDARD tier (model: sonnet)
    - Complex analysis: THOROUGH tier (model: opus)
-5. **Run long operations in background**: Builds, installs, test suites
-6. **Update state**: Write current iteration and phase to ralph-state.json
+8. **Run long operations in background**: Builds, installs, test suites
+9. **Update state**: Write current iteration and phase to ralph-state.json
 
-### 3. Verify Completion
+### 3. Verify Completion (via Verifier Agent)
 
-**All of these must pass before claiming completion:**
-
-a. Identify what command proves the task is complete
-b. Run verification (test, build, lint) -- **fresh output, not cached**
-c. Read the output -- confirm it actually passed
-d. Check: zero pending/in_progress TODO items
-
-### 4. Architect Verification (Tiered)
-
-Spawn an architect agent for review:
-
-| Scope | Minimum Tier |
-|-------|-------------|
-| <5 files, <100 lines, full tests | STANDARD (sonnet) |
-| Standard changes | STANDARD (sonnet) |
-| >20 files or security/architectural | THOROUGH (opus) |
-
-**Ralph floor: always at least STANDARD, even for small changes.**
-
-Use the Agent tool:
+Instead of inline verification, dispatch the verifier agent:
 
 ```
 Agent(
-  name: "architect-review",
-  prompt: "Review these changes as an architect. Read agents/architect.md for your role definition. {details of changes}",
-  model: "sonnet",  // or "opus" for THOROUGH
-  subagent_type: "general-purpose"
+  name: "ralph-verifier",
+  model: "sonnet",
+  prompt: "Read agents/verifier.md. Verify completion of: {task}.
+    Plan: {plan_path}. Iteration: {N}.
+    Run fresh tests, build, lint. Check all requirements.
+    Output structured VERIFICATION REPORT with verdict: PASS | FAIL | INCOMPLETE"
 )
 ```
+
+**On verdict:**
+- `PASS` → proceed to Step 4 (Architect Verification)
+- `FAIL` or `INCOMPLETE` → add unresolved items to next iteration TODO → loop to Step 2
+- Benefit: executor can prep the next iteration WHILE verifier checks current work
+
+### 4. 4-Agent Validation Panel
+
+Replace single architect review with a parallel 4-agent panel:
+
+```
+// All 4 dispatched simultaneously
+Agent(
+  name: "panel-architect",
+  model: "sonnet",  // or "opus" for >20 files or security/architectural changes
+  prompt: "Read agents/architect.md. Review for correctness and completeness. {changes}"
+)
+Agent(
+  name: "panel-critic",
+  model: "opus",
+  prompt: "Read agents/critic.md. Review for plan adherence, tradeoffs, and ADR. {plan_path} {changes}"
+)
+Agent(
+  name: "panel-security",
+  model: "opus",
+  prompt: "Read agents/security-reviewer.md. Final security scan of all changes. {changes}"
+)
+Agent(
+  name: "panel-writer-check",
+  model: "haiku",
+  prompt: "Read agents/writer.md. Check if documentation updates are needed for these changes.
+    Report: which docs need updating, what's missing. Advisory only — do not write docs yet. {changes}"
+)
+```
+
+**Approval rules:**
+- `architect` + `critic` + `security-reviewer` must ALL approve → proceed to Step 5
+- Any rejection → fix issues → re-verify at same tier → loop to Step 3
+- `writer-check` findings are noted for Step 5.5 (advisory, not blocking)
+
+**Ralph floor: architect always at least STANDARD, even for small changes.**
+
+| Scope | Architect Tier |
+|-------|---------------|
+| <5 files, <100 lines, full tests | STANDARD (sonnet) |
+| Standard changes | STANDARD (sonnet) |
+| >20 files or security/architectural | THOROUGH (opus) |
 
 ### 5. On Approval
 
@@ -176,6 +264,23 @@ Agent(
 2. Run `/noyeah-retro` to capture learnings from this run
 3. Run `/noyeah-cancel` for clean state cleanup
 4. Report completion with evidence summary
+
+### 5.5. Auto Writer (Non-Blocking)
+
+If the writer-check in Step 4 found documentation updates needed:
+
+```
+Agent(
+  name: "ralph-writer",
+  model: "haiku",
+  prompt: "Read agents/writer.md. Update documentation based on these findings: {writer_check_findings}.
+    Source files: {files_changed}. Write/update docs as needed.",
+  run_in_background: true
+)
+```
+
+- Non-blocking: completion proceeds regardless of writer output
+- Writer results are logged but do not gate the Ralph outcome
 
 ### 6. On Rejection
 

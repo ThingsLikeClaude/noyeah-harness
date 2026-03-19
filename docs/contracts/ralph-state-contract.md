@@ -18,6 +18,7 @@ require explicit versioning and migration.
   "linked_ultrawork": false,
   "linked_team": false,
   "visual_scores": [],
+  "failure_tracking": {},
   "state": {
     "context_snapshot_path": ".harness/context/oauth-20260313T143000Z.md"
   }
@@ -39,6 +40,7 @@ require explicit versioning and migration.
 | linked_ultrawork | boolean | No | Whether ultrawork is linked |
 | linked_team | boolean | No | Whether team mode is linked |
 | visual_scores | array | No | Visual verdict scores per iteration |
+| failure_tracking | object | No | Error signature → count map for debugger auto-escalation. Schema: `{ "sig_hash": { "signature": "error text", "count": N, "files": ["path"] } }` |
 
 ## Phase Vocabulary (Frozen)
 

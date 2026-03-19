@@ -30,6 +30,28 @@ and `/noyeah-ralph` for persistent execution.
 2. If request is vague, explore codebase first, then run brief Socratic interview (max 5 questions)
 3. Do not proceed until context snapshot exists
 
+### Phase 0.5: Research (Conditional)
+
+Triggered automatically when research auto-detection fires (see `rules/keyword-detection.md`):
+
+1. **Check trigger conditions**: creation verb + domain noun + greenfield context
+2. **Dispatch researcher**:
+   ```
+   Agent(
+     name: "autopilot-researcher",
+     model: "sonnet",
+     prompt: "Read agents/researcher.md. Research competitors and architecture for: {task}.
+       Domain: {detected_domain}. Output to .harness/context/research-{slug}-{timestamp}.md"
+   )
+   ```
+3. **Extract summary**: Read the `## Summary` section (500 tokens) from the research report
+4. **Store in state**: Add `research_path` and `research_summary` to autopilot-state.json
+5. **Pass to Phase 1**: Both planner and architect receive the research summary as context
+
+**Override flags:**
+- `--no-research`: Skip even if auto-detection triggers
+- `--research`: Force research even if auto-detection doesn't trigger
+
 ### Phase 1: Planning (via /noyeah-ralplan)
 
 1. Invoke `/noyeah-ralplan` with the task description
@@ -42,34 +64,50 @@ and `/noyeah-ralph` for persistent execution.
 2. Ralph handles: parallel delegation, iteration, persistence
 3. State tracked in `.harness/state/noyeah-ralph-state.json`
 
-### Phase 3: QA Cycling (up to 5 cycles)
+### Phase 3: Agent-Based QA Cycling (up to 5 cycles)
 
-After Ralph reports completion:
+After Ralph reports completion, use dedicated agents per cycle:
 
 ```
 For each QA cycle (max 5):
-  1. Run full test suite
-  2. Run build
-  3. Run linter/typecheck
-  4. If all pass -> proceed to Phase 4
-  5. If failures -> fix and repeat
-  6. If same failure 3x -> escalate to user
+  1. Dispatch verifier(sonnet):
+     Agent(
+       name: "qa-verifier-{cycle}",
+       model: "sonnet",
+       prompt: "Read agents/verifier.md. Run full verification: tests, build, lint, typecheck.
+         Plan: {plan_path}. Output structured VERIFICATION REPORT."
+     )
+  2. If verifier reports PASS -> proceed to Phase 4
+  3. If verifier reports FAIL:
+     a. Dispatch debugger(sonnet) to diagnose:
+        Agent(name: "qa-debugger", model: "sonnet",
+          prompt: "Read agents/debugger.md. Diagnose: {failure_details}")
+     b. Dispatch executor(sonnet) to fix based on debugger's diagnosis
+     c. Repeat cycle
+  4. Same failure 3x -> escalate to user with debugger's analysis
 ```
 
-### Phase 4: Multi-Perspective Validation
+### Phase 4: Multi-Perspective Validation (4 reviewers)
 
-Spawn 3 parallel architect reviews:
+Spawn 4 parallel reviews:
 
 ```
 Agent(name: "review-correctness", model: "opus",
-  prompt: "Review for correctness. Does this implementation meet all requirements?")
+  prompt: "Read agents/architect.md. Review for correctness.
+    Does this implementation meet all requirements in {plan_path}?")
 Agent(name: "review-security", model: "opus",
-  prompt: "Review for security. Any OWASP Top 10 vulnerabilities?")
+  prompt: "Read agents/security-reviewer.md. Review for security.
+    Check OWASP Top 10, secrets, dependency vulnerabilities.")
 Agent(name: "review-maintainability", model: "sonnet",
-  prompt: "Review for maintainability. Code quality, naming, structure?")
+  prompt: "Read agents/architect.md. Review for maintainability.
+    Code quality, naming, structure, test coverage?")
+Agent(name: "review-critic", model: "opus",
+  prompt: "Read agents/critic.md. Review for plan adherence and tradeoffs.
+    Plan: {plan_path}. Are all planned features implemented? Any scope drift?
+    Output ADR if architectural decisions were made during implementation.")
 ```
 
-All three must approve. Any rejection -> fix and re-review.
+All four must approve. Any rejection -> fix and re-review.
 
 ### Phase 5: Cleanup & Report
 
@@ -91,11 +129,13 @@ Write to `.harness/state/noyeah-autopilot-state.json`:
   "plan_path": null,
   "ralph_iterations": 0,
   "qa_cycles": 0,
-  "reviews_passed": []
+  "reviews_passed": [],
+  "research_path": null,
+  "research_summary": null
 }
 ```
 
-Update `phase` at each transition: `intake` -> `planning` -> `executing` -> `qa` -> `validation` -> `complete`
+Update `phase` at each transition: `intake` -> `research` -> `planning` -> `executing` -> `qa` -> `validation` -> `complete`
 
 ## Cancellation
 

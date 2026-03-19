@@ -23,17 +23,30 @@ Critic validates. The result is an approved plan with Architecture Decision Reco
 - User already has a clear plan
 - Time-critical hotfix
 
-## RALPLAN-DR Process (Sequential, Never Parallel)
+## RALPLAN-DR Process
 
-### Round 1: Planner Proposes
+### Research Context Injection
 
-Spawn a planner agent (THOROUGH tier):
+Before dispatching planner and architect, check for research context:
 
 ```
+If .harness/context/research-{slug}-*.md exists:
+  1. Read the ## Summary section (500 tokens) from the research report
+  2. Inject research_summary into BOTH planner and architect prompts
+  3. Full report path available via research_path for on-demand reading
+```
+
+### Round 1: Planner + Architect (Parallel)
+
+Dispatch planner and architect SIMULTANEOUSLY — each works independently:
+
+```
+// Both dispatched in the same message block
 Agent(
   name: "ralplan-planner",
   model: "opus",
   prompt: "Read agents/planner.md for your role. Create a plan for: {task}.
+    {research_summary if available: '## Research Context\n{summary}'}
     Follow your Methodology Classification and Domain Modeling protocols:
     1. Classify task_type, tdd_mode, ddd_mode — output in ## Methodology section
     2. If ddd_mode: applied — model the domain and output in ## Domain Model section
@@ -48,25 +61,43 @@ Agent(
     - Testing strategy
     Save to .harness/plans/plan-{slug}.md"
 )
+
+Agent(
+  name: "ralplan-architect-independent",
+  model: "opus",
+  prompt: "Read agents/architect.md for your role. Independently analyze: {task}.
+    {research_summary if available: '## Research Context\n{summary}'}
+    Produce your own architectural analysis BEFORE seeing the planner's output:
+    1. What approach would you take?
+    2. Key architectural decisions and tradeoffs
+    3. Risks you foresee
+    4. Alternative approaches worth considering
+    Save to .harness/plans/architect-analysis-{slug}.md"
+)
 ```
 
-### Round 2: Architect Challenges
+### Round 2: Architect Reconciliation
 
-Spawn an architect agent (THOROUGH tier):
+After both complete, the architect reviews the planner's plan WITH its own prior analysis:
 
 ```
 Agent(
-  name: "ralplan-architect",
+  name: "ralplan-architect-reconcile",
   model: "opus",
-  prompt: "Read agents/architect.md for your role. Review the plan at .harness/plans/plan-{slug}.md.
-    You MUST provide:
+  prompt: "Read agents/architect.md for your role.
+    You produced an independent analysis at .harness/plans/architect-analysis-{slug}.md.
+    Now review the planner's plan at .harness/plans/plan-{slug}.md.
+    Compare against your own analysis. You MUST provide:
     1. Antithesis: strongest argument AGAINST the proposed approach
-    2. Steelman: best alternative approach the planner didn't consider
+    2. Steelman: best alternative approach (draw from your independent analysis)
     3. Tradeoff tension: what does this plan sacrifice?
     4. Verdict: APPROVE / REVISE / REJECT with specific reasons
     Append your review to the plan file under '## Architect Review'"
 )
 ```
+
+**~40% planning time reduction** — planner and architect work in parallel during Round 1,
+then architect reconciles in Round 2 (faster than sequential Round 1 → Round 2).
 
 ### Round 3: Critic Validates
 

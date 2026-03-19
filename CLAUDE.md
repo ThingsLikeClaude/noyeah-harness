@@ -16,7 +16,7 @@ User
     -> Claude Code (execution engine)
     -> CLAUDE.md (orchestration brain - this file)
     -> skills/ (14 workflow definitions)
-    -> agents/ (12 role prompts for subagents)
+    -> agents/ (13 role prompts for subagents)
     -> .harness/ (runtime state, plans, context, memory, logs)
     -> docs/ (contracts, workflows, system design)
 ```
@@ -27,27 +27,40 @@ User
 /noyeah-autopilot (full lifecycle: idea -> verified code)
   |
   ├── /noyeah-deep-interview (requirements gathering)
+  │     └── explorer (haiku) -- parallel codebase search during Q&A
+  │
+  ├── researcher (sonnet) -- competitive intelligence [auto: greenfield tasks]
+  │
   ├── /noyeah-ralplan (consensus planning)
-  │     ├── planner (opus) -- proposes
-  │     ├── architect (opus) -- challenges
+  │     ├── planner (opus) ──┐
+  │     ├── architect (opus) ─┘── parallel, then reconcile
   │     └── critic (opus) -- validates
   │
   ├── /noyeah-ralph (persistent execution loop, max 10 iterations)
   │     ├── /noyeah-ultrawork (parallel dispatch)
   │     │     ├── executor (sonnet) -- implements
-  │     │     ├── debugger (sonnet) -- fixes
+  │     │     ├── debugger (sonnet) -- fixes [auto: 2x same error]
   │     │     ├── test-engineer (sonnet) -- tests
-  │     │     ├── build-fixer (sonnet) -- repairs builds
+  │     │     ├── build-fixer (sonnet) -- repairs builds [auto: build fail]
   │     │     ├── explorer (haiku) -- searches
-  │     │     ├── writer (haiku) -- documents
-  │     │     └── integrator (sonnet) -- merges parallel outputs
+  │     │     ├── writer (haiku) -- documents [auto: post-completion]
+  │     │     └── integrator (sonnet) -- merges + semantic conflict check
   │     │
+  │     ├── security-reviewer (opus) -- security gate [auto: after GREEN]
   │     ├── /noyeah-visual-verdict (screenshot QA, when visual)
-  │     └── verifier (sonnet) -- proves completion
-  │           └── architect (sonnet/opus) -- final review
+  │     ├── verifier (sonnet) -- proves completion [replaces inline verification]
+  │     └── 4-agent validation panel:
+  │           ├── architect (sonnet/opus) -- correctness
+  │           ├── critic (opus) -- plan adherence + ADR
+  │           ├── security-reviewer (opus) -- final security scan
+  │           └── writer (haiku) -- doc update check (advisory)
   │
-  ├── /noyeah-ultraqa (QA cycling, up to 5 rounds)
-  └── Multi-perspective validation (3 parallel reviews)
+  ├── /noyeah-ultraqa (agent-based QA cycling, up to 5 rounds)
+  │     ├── verifier (sonnet) -- check
+  │     ├── debugger (sonnet) -- diagnose
+  │     └── executor (sonnet) -- fix
+  │
+  └── Multi-perspective validation (4 parallel reviews)
 
 /noyeah-team (coordinated multi-agent execution)
   ├── Leader (you) coordinates
@@ -85,22 +98,23 @@ User
 
 ---
 
-## Available Agent Roles (12)
+## Available Agent Roles (13)
 
-| Role | Tier | Posture | File | Purpose |
-|------|------|---------|------|---------|
-| executor | STANDARD | deep-worker | agents/executor.md | Implementation with verification |
-| architect | THOROUGH | frontier-orchestrator | agents/architect.md | Read-only strategic analysis |
-| planner | THOROUGH | frontier-orchestrator | agents/planner.md | Planning and breakdown |
-| verifier | STANDARD | deep-worker | agents/verifier.md | Completion evidence specialist |
-| debugger | STANDARD | deep-worker | agents/debugger.md | Root-cause analysis (5-step protocol) |
-| critic | THOROUGH | frontier-orchestrator | agents/critic.md | Adversarial review with ADR |
-| security-reviewer | THOROUGH | frontier-orchestrator | agents/security-reviewer.md | OWASP Top 10, read-only |
-| build-fixer | STANDARD | deep-worker | agents/build-fixer.md | Minimal-diff build repair |
-| test-engineer | STANDARD | deep-worker | agents/test-engineer.md | TDD enforcement, testing pyramid |
-| writer | LOW | fast-lane | agents/writer.md | Technical documentation |
-| explorer | LOW | fast-lane | agents/explorer.md | Fast codebase search |
-| integrator | STANDARD | deep-worker | agents/integrator.md | Merge specialist for parallel agent output |
+| Role | Tier | Posture | File | Purpose | Auto-Trigger |
+|------|------|---------|------|---------|-------------|
+| executor | STANDARD | deep-worker | agents/executor.md | Implementation with verification | - |
+| architect | THOROUGH | frontier-orchestrator | agents/architect.md | Read-only strategic analysis | - |
+| planner | THOROUGH | frontier-orchestrator | agents/planner.md | Planning and breakdown | - |
+| verifier | STANDARD | deep-worker | agents/verifier.md | Completion evidence specialist | Ralph Step 3 |
+| debugger | STANDARD | deep-worker | agents/debugger.md | Root-cause analysis (5-step protocol) | 2x same error |
+| critic | THOROUGH | frontier-orchestrator | agents/critic.md | Adversarial review with ADR | Ralph 4-agent panel |
+| security-reviewer | THOROUGH | frontier-orchestrator | agents/security-reviewer.md | OWASP Top 10, read-only | After GREEN + final panel |
+| build-fixer | STANDARD | deep-worker | agents/build-fixer.md | Minimal-diff build repair | Build failure |
+| test-engineer | STANDARD | deep-worker | agents/test-engineer.md | TDD enforcement, testing pyramid | TDD phases |
+| writer | LOW | fast-lane | agents/writer.md | Technical documentation | Ralph Step 5.5 |
+| explorer | LOW | fast-lane | agents/explorer.md | Fast codebase search | Deep-interview Q&A |
+| integrator | STANDARD | deep-worker | agents/integrator.md | Merge + semantic conflict check | File/semantic overlaps |
+| researcher | STANDARD | deep-worker | agents/researcher.md | Competitive intelligence via MCP | Greenfield tasks |
 
 ---
 
@@ -138,7 +152,9 @@ User
 | `docs/contracts/noyeah-ralph-state-contract.md` | Ralph state schema (frozen) |
 | `docs/contracts/noyeah-cancel-contract.md` | Cancellation protocol |
 | `docs/contracts/core-contracts.md` | I/O contract schemas for 5 core chained agents |
-| `docs/contracts/dispatch-templates.md` | Dispatch templates for 6 non-core agents |
+| `docs/contracts/dispatch-templates.md` | Dispatch templates for 7 non-core agents |
+| `docs/contracts/research-contract.md` | Research agent I/O schema |
+| `docs/research-phase.md` | Research phase documentation |
 | `docs/learning-injection.md` | Learning auto-injection protocol |
 
 ---

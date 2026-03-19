@@ -20,15 +20,21 @@
 
 ### 3. Roles (Agent Identity)
 
-| Role | Default Tier | Posture | File |
-|------|-------------|---------|------|
-| executor | STANDARD | deep-worker | agents/executor.md |
-| architect | THOROUGH | frontier-orchestrator | agents/architect.md |
-| planner | THOROUGH | frontier-orchestrator | agents/planner.md |
-| verifier | STANDARD | deep-worker | agents/verifier.md |
-| debugger | STANDARD | deep-worker | agents/debugger.md |
-| critic | THOROUGH | frontier-orchestrator | agents/critic.md |
-| integrator | STANDARD | deep-worker | agents/integrator.md |
+| Role | Default Tier | Posture | File | Auto-Trigger |
+|------|-------------|---------|------|-------------|
+| executor | STANDARD | deep-worker | agents/executor.md | - |
+| architect | THOROUGH | frontier-orchestrator | agents/architect.md | - |
+| planner | THOROUGH | frontier-orchestrator | agents/planner.md | - |
+| verifier | STANDARD | deep-worker | agents/verifier.md | Ralph Step 3 (replaces inline) |
+| debugger | STANDARD | deep-worker | agents/debugger.md | 2x same error in Ralph |
+| critic | THOROUGH | frontier-orchestrator | agents/critic.md | Ralph 4-agent panel |
+| security-reviewer | THOROUGH | frontier-orchestrator | agents/security-reviewer.md | After GREEN in Ralph, final panel |
+| build-fixer | STANDARD | deep-worker | agents/build-fixer.md | Build failure in Ralph |
+| test-engineer | STANDARD | deep-worker | agents/test-engineer.md | TDD phases |
+| writer | LOW | fast-lane | agents/writer.md | Ralph Step 5.5 (post-completion) |
+| explorer | LOW | fast-lane | agents/explorer.md | During deep-interview Q&A |
+| integrator | STANDARD | deep-worker | agents/integrator.md | File overlaps + semantic conflicts |
+| researcher | STANDARD | deep-worker | agents/researcher.md | Greenfield tasks in autopilot |
 
 ## Selection Rules
 

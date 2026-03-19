@@ -65,7 +65,28 @@ After all agents complete:
    Agent(name: "integrator", model: "sonnet", prompt: "Read agents/integrator.md. {agent_outputs} {file_manifest} {task_context}")
    ```
    If no file appears in 2+ agent outputs, skip the integrator and proceed directly to verification.
-3. Run verification (test, build, lint)
+3. **Semantic conflict detection** (even without file overlaps):
+   The integrator also checks for:
+   - **Shared state assumptions**: Do agents assume compatible data shapes for shared state (DB, cache, store)?
+   - **API boundary alignment**: Do function signatures, types, and return values match at module boundaries?
+   - **Naming/typing conflicts**: Are there conflicting names for the same concept across modules?
+
+   ```
+   TRIVIAL conflicts (naming, import order) → integrator auto-resolves
+   COMPLEX conflicts (incompatible assumptions, API mismatch) → escalate to architect
+   ```
+
+   Dispatch integrator for semantic checks when agents touched related modules, even if no file overlap exists:
+   ```
+   Agent(
+     name: "integrator-semantic",
+     model: "sonnet",
+     prompt: "Read agents/integrator.md. Check for semantic conflicts across these agent outputs.
+       Focus on: shared state compatibility, API boundary alignment, naming consistency.
+       {agent_outputs} {module_boundaries}"
+   )
+   ```
+4. Run verification (test, build, lint)
 
 ## State Management
 

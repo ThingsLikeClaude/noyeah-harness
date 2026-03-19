@@ -32,11 +32,34 @@ Unlike `/noyeah-ultrawork` (simple fan-out), Team provides:
 /noyeah-team {count}:{role} "task description"
 ```
 
-Examples:
+### Standard Composition (homogeneous team)
 ```
 /noyeah-team 3:executor "implement auth, payments, and notifications modules"
 /noyeah-team 2:executor "frontend and backend for user dashboard"
 /noyeah-team ralph 3:executor "implement with Ralph verification after team"
+```
+
+### Mixed Composition (heterogeneous team)
+
+Use `+` delimiter to specify one worker per role:
+
+```
+/noyeah-team executor+test-engineer+security-reviewer "implement and verify auth module"
+/noyeah-team executor+executor+test-engineer "implement frontend and backend, then test"
+```
+
+**Mixed composition rules:**
+- Each role uses its own agent file (`agents/{role}.md`) and default tier
+- Leader decomposes the task into role-appropriate subtasks
+- Workers are dispatched simultaneously (roles are independent)
+- Max 6 total workers (Claude Code subagent limit applies)
+
+**Parsing:**
+```
+"executor+test-engineer+security-reviewer"
+  → worker 1: role=executor, model=sonnet, agents/executor.md
+  → worker 2: role=test-engineer, model=sonnet, agents/test-engineer.md
+  → worker 3: role=security-reviewer, model=opus, agents/security-reviewer.md
 ```
 
 ## Execution Protocol
