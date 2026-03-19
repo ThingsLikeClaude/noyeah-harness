@@ -69,6 +69,8 @@ Optional context:
 - codebase_map_path: .harness/codebase-map/map.md
 - constraints: known limitations (e.g. "only touch src/auth/", "no schema changes")
 - interview_path: .harness/context/interview-{slug}-{ts}.md (if deep-interview was run)
+- research_path: .harness/context/research-{slug}-{ts}.md (if researcher was run)
+- research_summary: 500-token synthesis from researcher output (injected into prompt)
 
 OUTPUT CONTRACT
 ===============
@@ -255,9 +257,9 @@ Use the I/O contracts from Part 1 when the agent is part of a structured workflo
 
 | Workflow | Agent chain |
 |----------|-------------|
-| `/noyeah-ralplan` | planner -> architect -> critic |
-| `/noyeah-ralph` | executor -> verifier (-> debugger or build-fixer on failure) |
-| `/noyeah-autopilot` | planner -> architect -> critic -> executor -> verifier |
+| `/noyeah-ralplan` | (planner + architect parallel) -> architect reconciles -> critic |
+| `/noyeah-ralph` | executor -> verifier -> 4-agent panel (architect + critic + security + writer) |
+| `/noyeah-autopilot` | researcher (optional) -> planner -> architect -> critic -> executor -> verifier |
 
 In these chains the output of each agent becomes the `prior_output` input field of the next. The orchestrator reads the `verdict` field to decide whether to proceed, loop, or escalate. Parse verdict tokens exactly as defined — do not infer intent from prose.
 
@@ -269,13 +271,14 @@ Use the dispatch templates from Part 2 when dispatching to debugger, build-fixer
 
 | Trigger | Agent to dispatch |
 |---------|------------------|
-| Build fails after executor run | build-fixer |
-| Test suite fails and root cause is unclear | debugger |
+| Build fails after executor run | build-fixer (auto-dispatch in ralph) |
+| Test suite fails and root cause is unclear | debugger (auto-escalation after 2x same error) |
 | New feature needs test coverage | test-engineer |
 | Bug fix needs regression test | test-engineer |
-| Pre-commit or pre-merge security gate | security-reviewer |
-| New public API or module needs docs | writer |
-| Orchestrator needs to locate a function or pattern | explorer |
+| Pre-commit or pre-merge security gate | security-reviewer (auto in ralph after GREEN) |
+| New public API or module needs docs | writer (auto in ralph Step 5.5) |
+| Orchestrator needs to locate a function or pattern | explorer (auto in deep-interview) |
+| Greenfield task needs competitive intelligence | researcher (auto in autopilot Phase 0.5) |
 
 Dispatch templates are complete prompts. Copy the example, substitute the bracketed fields, and pass it as the `prompt` parameter to `Agent()`.
 

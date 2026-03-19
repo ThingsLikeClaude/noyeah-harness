@@ -5,23 +5,41 @@
 ```
 /noyeah-autopilot (full lifecycle)
   |
+  ├── researcher (sonnet) -- competitive intelligence [auto: greenfield tasks]
+  │
   ├── /noyeah-ralplan (consensus planning)
-  │     ├── planner (opus) -- proposes
-  │     ├── architect (opus) -- challenges
+  │     ├── planner (opus) ──┐
+  │     ├── architect (opus) ─┘── parallel, then reconcile
   │     └── critic (opus) -- validates
   │
   ├── /noyeah-ralph (persistent execution loop)
   │     ├── /noyeah-ultrawork (parallel dispatch)
   │     │     ├── executor (sonnet) -- implements
-  │     │     ├── debugger (sonnet) -- fixes
+  │     │     ├── debugger (sonnet) -- fixes [auto: 2x same error]
+  │     │     ├── build-fixer (sonnet) -- repairs builds [auto: build fail]
+  │     │     ├── test-engineer (sonnet) -- tests
   │     │     ├── explorer (haiku) -- searches
-  │     │     └── integrator (sonnet) -- merges parallel outputs
+  │     │     ├── writer (haiku) -- documents [auto: post-completion]
+  │     │     └── integrator (sonnet) -- merges + semantic conflict check
   │     │
-  │     └── verifier (sonnet) -- proves completion
-  │           └── architect (sonnet/opus) -- final review
+  │     ├── security-reviewer (opus) -- security gate [auto: after GREEN]
+  │     ├── verifier (sonnet) -- proves completion [replaces inline verification]
+  │     └── 4-agent validation panel:
+  │           ├── architect (sonnet/opus) -- correctness
+  │           ├── critic (opus) -- plan adherence + ADR
+  │           ├── security-reviewer (opus) -- final security scan
+  │           └── writer (haiku) -- doc update check (advisory)
   │
-  └── QA cycling (up to 5 rounds)
-        └── Multi-perspective validation (3 parallel reviews)
+  ├── Agent-based QA cycling (up to 5 rounds)
+  │     ├── verifier (sonnet) -- check
+  │     ├── debugger (sonnet) -- diagnose failures
+  │     └── executor (sonnet) -- fix
+  │
+  └── Multi-perspective validation (4 parallel reviews)
+        ├── correctness (opus)
+        ├── security (opus)
+        ├── maintainability (sonnet)
+        └── critic (opus) -- plan adherence
 ```
 
 ## Skill Relationships
@@ -65,7 +83,7 @@ starting ──→ executing ──→ verifying ──→ complete
 
 ### Autopilot Phases
 ```
-intake → planning → executing → qa → validation → complete
+intake → research (optional) → planning → executing → qa → validation → complete
                                  │                    │
                                  └── (loop max 5x)    └── cancelled
 ```

@@ -1,10 +1,10 @@
 # Dispatch Templates
 
-Dispatch Templates for 6 non-core agents in noyeah-harness. Copy the template, substitute bracketed fields, and pass as the `prompt` parameter to `Agent()`. For core chained agent I/O contracts, see `core-contracts.md`.
+Dispatch Templates for 7 non-core agents in noyeah-harness. Copy the template, substitute bracketed fields, and pass as the `prompt` parameter to `Agent()`. For core chained agent I/O contracts, see `core-contracts.md`.
 
 ---
 
-## Part 2: Dispatch Templates for 6 Non-Core Agents
+## Part 2: Dispatch Templates for 7 Non-Core Agents
 
 Non-core agents are dispatched as-needed rather than chained in a fixed sequence. Use these templates to construct dispatch prompts. Each template specifies required context fields, expected output format, and a concrete example.
 
@@ -362,4 +362,70 @@ recommend architect review.
 
 ---
 
-See also: [`core-contracts.md`](core-contracts.md) for I/O contract schemas used in structured workflow chains (ralplan, ralph, autopilot).
+---
+
+### 2.7 Researcher
+
+**Tier**: STANDARD | **Model**: sonnet | **Posture**: deep-worker
+
+#### Required context fields
+
+| Field | Description |
+|-------|-------------|
+| `task` | What is being built (plain language description) |
+| `domain` | Detected category (PM/Collab, E-commerce, Social, Communication, Analytics, CRM, Education) |
+
+#### Expected output format
+
+```
+# Research: {task}
+Date: {ISO date}
+Searches: {count}/8 web, {count}/3 deep-read, {count}/2 code
+
+## Competitors ({N} found)
+| Name | URL | Key Differentiator | Relevance |
+
+## Architecture Patterns
+- {pattern}: {description, tradeoffs}
+
+## Feature Matrix
+| Feature | Comp 1 | Comp 2 | Comp 3 | Our Priority |
+
+## UX Patterns
+- {pattern}: {where seen, why effective}
+
+## Technical Recommendations
+1. {recommendation}: {rationale}
+
+## Summary
+{500-token synthesis for prompt injection}
+```
+
+#### Dispatch prompt example
+
+```
+Agent(
+  model="claude-sonnet-4-5",
+  prompt="""
+You are the researcher agent. Read agents/researcher.md for your full protocol.
+
+Task: Research competitors and architecture for building a team collaboration app.
+Domain: PM/Collab
+
+Follow your 6-step protocol:
+1. Parse task → extract domain keywords
+2. Competitor discovery (max 4 Exa searches)
+3. Architecture patterns (max 2 Exa searches)
+4. Deep-read top 3 competitor pages (Jina Reader)
+5. Implementation patterns (max 2 Exa code context searches)
+6. Synthesize → structured report
+
+Cost limits: max 8 web searches, max 3 Jina reads.
+Output to .harness/context/research-team-collab-20260319T100000Z.md
+"""
+)
+```
+
+---
+
+See also: [`core-contracts.md`](core-contracts.md) for I/O contract schemas used in structured workflow chains (ralplan, ralph, autopilot). [`research-contract.md`](research-contract.md) for the full researcher I/O contract.

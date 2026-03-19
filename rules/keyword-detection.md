@@ -20,6 +20,32 @@
 | resume, continue, pick up | `/noyeah-resume` | Resume interrupted work |
 | start, help, how do I, what should I use, where do I begin | (guided routing) | Guided skill selection for new users |
 
+## Research Auto-Detection
+
+Trigger research phase when ALL conditions are met:
+
+1. **Creation verb present**: "만들어줘", "build", "create", "make", "develop", "구현", "개발"
+2. **Domain noun present**: "app", "platform", "system", "tool", "service", "site", "dashboard", "앱", "플랫폼", "시스템"
+3. **Greenfield context**: task does NOT reference an existing file path or module (i.e., building something new)
+
+### Domain Mapping for Search Queries
+
+| Keywords | Category | Example Searches |
+|----------|----------|-----------------|
+| collaboration, team, project, 협업, 팀 | PM/Collab | "team collaboration app features 2026" |
+| e-commerce, shop, store, 쇼핑, 상점 | E-commerce | "e-commerce platform architecture" |
+| social, feed, follow, 소셜, 피드 | Social | "social media app architecture patterns" |
+| chat, messaging, real-time, 채팅, 메시징 | Communication | "real-time chat architecture" |
+| analytics, dashboard, 분석, 대시보드 | Analytics | "analytics dashboard patterns" |
+| CRM, customer, 고객관리 | CRM | "CRM system features comparison" |
+| LMS, learning, course, 학습, 강의 | Education | "LMS platform architecture" |
+
+### Override Flags
+
+- Skip research: `/noyeah-autopilot --no-research "task"`
+- Force research: `/noyeah-autopilot --research "task"`
+- Research only: dispatch researcher agent directly
+
 ## Guided Routing Protocol
 
 When triggered by the keywords above (e.g., "help", "where do I begin"), follow this protocol:

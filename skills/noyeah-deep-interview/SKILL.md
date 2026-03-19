@@ -83,6 +83,19 @@ For example, new comments, likes, follows, or system announcements?"
 3. **Resolve branches before moving on.** Never leave an unresolved branch behind.
 4. **Check code instead of asking.** If the codebase can answer a question, look it up yourself.
 5. **State assumptions and confirm.** "I'm assuming X — does that sound right?"
+6. **Parallel explorer dispatch.** While waiting for the user's answer, if their previous answer
+   mentioned a concept, module, or integration point, dispatch an explorer agent in the background
+   to gather codebase context. Use this "free time" to inform your next question.
+
+   ```
+   // Fire-and-forget while user types their answer
+   Agent(
+     name: "interview-explorer",
+     model: "haiku",
+     prompt: "Read agents/explorer.md. Query: {concept from user's last answer}. Report relevant files and patterns.",
+     run_in_background: true
+   )
+   ```
 
 **Decision Tree Walking:**
 

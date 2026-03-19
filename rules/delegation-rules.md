@@ -9,4 +9,5 @@
 5. **Read `docs/agent-tiers.md`** before first delegation to select correct agent tiers.
 6. **Include context** from codebase map, memory, and state when dispatching agents.
 7. **Inject past learnings** when dispatching executor/debugger/test-engineer/build-fixer: read `project-memory.json`, filter learning entries by the agent's categories (see routing table in `docs/project-memory.md`), inject top 5 as `PAST LEARNINGS` block.
-8. **Use I/O contracts** for core chained agents (planner, architect, critic, executor, verifier). Use dispatch templates from `docs/contracts/dispatch-templates.md` for other agents.
+8. **Use I/O contracts** for core chained agents (planner, architect, critic, executor, verifier). Use dispatch templates from `docs/contracts/dispatch-templates.md` for other agents (debugger, build-fixer, test-engineer, security-reviewer, writer, explorer, researcher).
+9. **Auto-dispatch researcher** when greenfield task auto-detection triggers (creation verb + domain noun + no existing path). See `rules/keyword-detection.md` for detection rules.
