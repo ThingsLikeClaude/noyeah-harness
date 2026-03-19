@@ -28,7 +28,11 @@ and `/noyeah-ralph` for persistent execution.
 
 1. Create context snapshot at `.harness/context/noyeah-autopilot-{slug}-{timestamp}.md`
 2. If request is vague, explore codebase first, then run brief Socratic interview (max 5 questions)
-3. Do not proceed until context snapshot exists
+3. Run `/noyeah-skill-scout` to detect and install project-relevant skills from skills.sh
+   - If tech stack detected from manifest files → auto mode
+   - If empty project → use context snapshot or interview results for stack
+   - If skill-scout fails or no stack detected → warn and continue (non-blocking)
+4. Do not proceed until context snapshot exists
 
 ### Phase 0.5: Research (Conditional)
 
@@ -131,7 +135,9 @@ Write to `.harness/state/noyeah-autopilot-state.json`:
   "qa_cycles": 0,
   "reviews_passed": [],
   "research_path": null,
-  "research_summary": null
+  "research_summary": null,
+  "skills_scouted": false,
+  "skills_installed": []
 }
 ```
 

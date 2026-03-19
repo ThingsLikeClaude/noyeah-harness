@@ -193,9 +193,45 @@ install_mcps() {
   fi
 }
 
-# ── Step 8: Write metadata ──────────────────
+# ── Step 8: Skills CLI setup ──────────────────
+install_skills_cli() {
+  info "Step 8/9: Skills CLI setup..."
+  echo ""
+  echo "  noyeah-harness uses skills.sh to auto-discover project-relevant skills."
+  echo "  The /noyeah-skill-scout skill requires 'npx skills' CLI."
+  echo ""
+
+  # Check if npx skills works
+  if npx skills --version &>/dev/null 2>&1; then
+    ok "Skills CLI is available via npx"
+  else
+    warn "Skills CLI not reachable. /noyeah-skill-scout will use npx on-demand."
+  fi
+
+  # Check if find-skills is globally installed
+  if [[ -d "$HOME/.claude/skills/find-skills" ]]; then
+    ok "find-skills is already installed globally"
+  else
+    echo ""
+    echo "  find-skills helps discover community skills from skills.sh."
+    read -rp "Install find-skills skill globally? (recommended) (y/N): " answer
+
+    if [[ "${answer,,}" == "y" ]]; then
+      if npx skills add anthropics/skills@find-skills -g -y 2>/dev/null; then
+        ok "Installed find-skills globally"
+      else
+        warn "Failed to install find-skills (you can install manually later)"
+        warn "  npx skills add anthropics/skills@find-skills -g -y"
+      fi
+    else
+      ok "Skipped find-skills install."
+    fi
+  fi
+}
+
+# ── Step 9: Write metadata ──────────────────
 write_meta() {
-  info "Step 8/8: Writing metadata..."
+  info "Step 9/9: Writing metadata..."
 
   local now
   now=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -233,6 +269,7 @@ main() {
   handle_settings
   create_local_settings
   install_mcps
+  install_skills_cli
   write_meta
 
   echo ""
